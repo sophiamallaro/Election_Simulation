@@ -27,6 +27,10 @@ public class VoteController extends Application {
     private static final TestDB data = new TestDB();
     private List<ToggleGroup> buttonGroups;
 
+    VoteController() {
+
+    }
+
     public void start(Stage stage) {
         //Set up GUI
         VBox box = new VBox();
