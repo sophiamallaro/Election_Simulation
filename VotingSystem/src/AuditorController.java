@@ -85,9 +85,13 @@ public class AuditorController extends StateControl implements Initializable{
             Node node = (Node) generateButton;
             Stage myStage = (Stage) node.getScene().getWindow();
             //Requires that button names DO NOT CHANGE
-            Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(getButtonPressed() + ".fxml"));
-            myStage.setScene(new Scene(stateAndPrecinct));
-            myStage.show();
+            if(getButtonPressed().equals("Results")) {
+                myStage.setScene(new Scene(data.loadChart()));
+            } else {
+                Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(getButtonPressed() + ".fxml"));
+                myStage.setScene(new Scene(stateAndPrecinct));
+                myStage.show();
+            }
         } catch (NullPointerException npe) {
             System.out.print("The <ButtonName>.fxml file does not exist");
             generateButton.getScene().getWindow().hide();
