@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,9 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.ResourceBundle;
 
-//public class AddCandidateController implements Initializable {
-    /*List<Position> positions;
+public class AddCandidateController implements Initializable {
+    List<Position> positions;
     private TestDB data = new TestDB();
-    private String partySelected;
     Candidate newCandidate = new Candidate();
     List<String> titleNames;
     List<Position>  offices;
@@ -47,25 +47,38 @@ import java.util.ResourceBundle;
     public void initialize(URL url, ResourceBundle rb) {
         partySelect.getItems().clear();
         partySelect.getItems().addAll("Democrat", "Republican", "Green Party", "Independent", "Libertarian");
+        List<Position>  offices = data.getPositions("1502");
+        List<String> titleNames = new ArrayList<>();
+        for(Position position : offices) {
+            titleNames.add(position.getPositiontitle());
+        }
+
+        positionSelect.getItems().addAll(titleNames);
     }
 
     @FXML
     public void partySelected() throws Exception {
-        newCandidate.setFirstName(candidateFirstName.getText());
-        newCandidate.setLastName(candidateLastName.getText());
         newCandidate.setParty(partySelect.getValue().toString());
-        positionSelect.getItems().addAll("President", "Vice President", "House of Representative");
     }
 
     @FXML
     public void positionSelected() throws Exception {
-        partySelected = partySelect.getValue().toString();
-        int positionID = data.getPositionID(partySelected);
+        String selected = partySelect.getValue().toString();
+        Integer positionID = data.getPositionID(selected);
         newCandidate.setPositionid(positionID);
     }
 
     @FXML
-    public void submitButtonPressed(ActionEvent event) throws Exception {
-        data.addCandidate(newCandidate);
-    }*/
-//}
+    public void submitButtonPressed() throws Exception {
+
+        try {
+            newCandidate.setFirstName(candidateFirstName.getText());
+            newCandidate.setLastName(candidateLastName.getText());
+            data.addCandidate(newCandidate);
+        }
+        catch (NullPointerException ex)  {
+            candidateFirstName.setText("Enter First Name");
+            candidateFirstName.selectAll();
+        }
+    }
+}
