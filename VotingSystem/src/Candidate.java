@@ -1,10 +1,13 @@
 /**
+ * A candidate class that stores the details of the candidate
  *
  * @author Sophia Mallaro
  * Created by Sophia on 12/2/2016.
  */
 
 public class Candidate {
+
+    //Instantiation of variables for candidate's details
     private int candidateid;
     private String firstName;
     private String lastName;
@@ -12,14 +15,13 @@ public class Candidate {
     private int voteCount;
     private int positionid;
 
-    /**
-     *
-     */
+    //default constructor with the vote count value set to 0
     public Candidate()  {
         this.voteCount = 0;
     }
 
     /**
+     *
      *
      * @param firstName
      * @param lastName
@@ -66,16 +68,16 @@ public class Candidate {
     //}
 
     /**
-     *
-     * @return
+     * An accessor method to get the first name of the candidate
+     * @return the first name of the candidate
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     *
-     * @param firstName
+     * An update method to set the first name of the candidate
+     * @param firstName the first name of the candidate
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
