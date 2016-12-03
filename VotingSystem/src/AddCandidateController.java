@@ -69,6 +69,8 @@ public class AddCandidateController implements Initializable {
         }
 
         positionSelect.getItems().addAll(titleNames);
+        candidateFirstName.setText("");
+        candidateLastName.setText("");
     }
 
     /**
@@ -113,11 +115,17 @@ public class AddCandidateController implements Initializable {
         try {
             newCandidate.setFirstName(candidateFirstName.getText());
             newCandidate.setLastName(candidateLastName.getText());
-            data.addCandidate(newCandidate);
-            Node node = (Node) submitButton;
-            Stage myStage = (Stage) node.getScene().getWindow();
-            myStage.setScene(ElectionDriver.getStartScene());
-            myStage.show();
+            if(candidateFirstName.getText().equals("") || candidateFirstName.getText().equals("Enter First Name")) {
+                candidateFirstName.setText("Enter First Name");
+            } else if(candidateLastName.getText().equals("") || candidateLastName.getText().equals("Enter Last Name")) {
+                candidateLastName.setText("Enter Last Name");
+            } else if(!partySelect.getSelectionModel().isEmpty() && !positionSelect.getSelectionModel().isEmpty()) {
+                data.addCandidate(newCandidate);
+                Node node = (Node) submitButton;
+                Stage myStage = (Stage) node.getScene().getWindow();
+                myStage.setScene(ElectionDriver.getStartScene());
+                myStage.show();
+            }
         }
         catch (NullPointerException ex)  {
             candidateFirstName.setText("Enter First Name");

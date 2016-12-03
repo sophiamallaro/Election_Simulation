@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 // Image used for background found:
 // https://quote.com/blog/wp-content/uploads/2016/06/american-flag.jpg
 public class StateAndPrecinctController extends StateControl {
-
     @FXML
     private void displayStateAndPrecinct(ActionEvent event) throws Exception{
         //passes information about the button pressed to the next controller
