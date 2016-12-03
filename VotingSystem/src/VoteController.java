@@ -27,6 +27,10 @@ public class VoteController extends Application {
     private static final TestDB data = new TestDB();
     private List<ToggleGroup> buttonGroups;
 
+    VoteController() {
+
+    }
+
     public void start(Stage stage) {
         //Set up GUI
         VBox box = new VBox();
@@ -38,7 +42,7 @@ public class VoteController extends Application {
         title.setFont(Font.font("Helvetica-Bold", 20));
         box.getChildren().add(title);
 
-        List<Position> candidates = data.getPositionsWithCandidates("0102");
+        List<Position> candidates = data.getPositionsWithCandidates(AuditorController.getIdCode());
         for(Position position : candidates) {
             ToggleGroup group = new ToggleGroup();
             Label text = new Label(position.getPositiontitle());
@@ -66,6 +70,7 @@ public class VoteController extends Application {
                     //System.out.println(group.getSelectedToggle().toString().split("'")[1]);
                     data.voteFor(group.getSelectedToggle().toString().split("'")[1]);
                 }
+                stage.setScene(ElectionDriver.getStartScene());
             }
         });
 
@@ -75,7 +80,7 @@ public class VoteController extends Application {
 
 
 
-        stage.show();
+        //stage.show();
     }
 
     public static void main(String[] args) {
