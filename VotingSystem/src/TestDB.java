@@ -12,18 +12,9 @@ public class TestDB {
 
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private PreparedStatement statementtwo;
 
     public static void main(String[] args) {
         TestDB tdb = new TestDB();
-        List<Position> candidates = tdb.getPositionsWithCandidates("0101");
-        for(Position position : candidates) {
-            System.out.println(position.getPositiontitle());
-            for(Candidate candidate: position.getCandidates()) {
-                System.out.println(candidate.getFirstName() + candidate.getLastName());
-            }
-            System.out.println();
-        }
     }
 
     TestDB() {
@@ -55,11 +46,11 @@ public class TestDB {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM positions");
+            preparedStatement = connection.prepareStatement("SELECT * FROM position");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 if (resultSet.getString("positiontitle").equals(name)) {
-                    return resultSet.getInt("addressid");
+                    return resultSet.getInt("positionid");
                 }
             }
         } catch (SQLException ex) {
