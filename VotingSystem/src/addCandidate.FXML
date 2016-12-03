@@ -7,20 +7,32 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="657.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddCandidateController">
    <children>
-      <Label fx:id="firstName" layoutX="107.0" layoutY="122.0" text="First Name" />
-      <TextField fx:id="candidateFirstName" layoutX="331.0" layoutY="112.0" />
-      <Label fx:id="lastName" layoutX="108.0" layoutY="236.0" text="Last Name" />
-      <TextField fx:id="candidateLastName" layoutX="331.0" layoutY="226.0" />
-      <Label fx:id="party" layoutX="178.0" layoutY="347.0" text="Party" />
-      <ComboBox fx:id="partySelect" layoutX="331.0" layoutY="337.0" onAction="#partySelected" prefHeight="45.0" prefWidth="372.0" />
-      <Label layoutX="143.0" layoutY="456.0" text="Position" />
-      <ComboBox fx:id="positionSelect" layoutX="331.0" layoutY="446.0" onAction="#positionSelected" prefHeight="65.0" prefWidth="372.0" />
-      <Button fx:id="submitButton" layoutX="559.0" layoutY="547.0" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="65.0" prefWidth="189.0" text="Submit" />
-      <Label layoutX="275.0" layoutY="38.0" text="Add Candidate">
+      <Label fx:id="firstName" layoutX="57.0" layoutY="104.0" text="First Name">
          <font>
-            <Font size="37.0" />
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="candidateFirstName" layoutX="207.0" layoutY="99.0" prefHeight="40.0" prefWidth="372.0" />
+      <Label fx:id="lastName" layoutX="58.0" layoutY="202.0" text="Last Name">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <TextField fx:id="candidateLastName" layoutX="207.0" layoutY="190.0" prefHeight="40.0" prefWidth="372.0" />
+      <Label fx:id="party" layoutX="100.0" layoutY="289.0" text="Party">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <ComboBox fx:id="partySelect" layoutX="207.0" layoutY="284.0" onAction="#partySelected" prefHeight="40.0" prefWidth="372.0" />
+      <Label layoutX="79.0" layoutY="371.0" text="Position">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <ComboBox fx:id="positionSelect" layoutX="207.0" layoutY="366.0" onAction="#positionSelected" prefHeight="40.0" prefWidth="372.0" />
+      <Button fx:id="submitButton" layoutX="458.0" layoutY="444.0" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="35.0" prefWidth="139.0" text="Submit" />
+      <Label layoutX="222.0" layoutY="31.0" text="Add Candidate">
+         <font>
+            <Font size="24.0" />
          </font>
       </Label>
    </children>
