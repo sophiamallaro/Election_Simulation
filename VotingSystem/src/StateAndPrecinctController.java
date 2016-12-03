@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -24,6 +25,8 @@ public class StateAndPrecinctController {
 
     @FXML
     private void displayStateAndPrecinct(ActionEvent event) throws Exception{
+        //passes information about the button pressed to the next controller
+        AuditorController.setButtonPressed(((Button)event.getSource()).getText());
         Node node = (Node) event.getSource();
         myStage = (Stage) node.getScene().getWindow();
         Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource("Auditor.fxml"));
