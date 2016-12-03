@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
     private TestDB data = new TestDB();
     private String partySelected;
     Candidate newCandidate = new Candidate();
+    List<String> titleNames;
+    List<Position>  offices;
 
     @FXML
     TextField candidateFirstName;
