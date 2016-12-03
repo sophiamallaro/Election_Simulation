@@ -41,7 +41,7 @@ public class TestDB {
         } catch(SQLException ex) {
             ex.printStackTrace();
             System.exit(0);
-        }
+        } //hi
     }
 
     public void findCandidates(int positionID) {
