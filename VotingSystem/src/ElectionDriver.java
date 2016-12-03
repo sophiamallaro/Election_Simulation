@@ -19,6 +19,6 @@ public class ElectionDriver extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("VotingSystemMain.fxml"));
         primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        primaryStage.show(); //being stage
     }
 }
