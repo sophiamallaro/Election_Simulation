@@ -59,6 +59,7 @@ public class TestDB {
                 }
             }
         } catch (SQLException ex) {
+            System.out.println("I'm catching an error");
             ex.printStackTrace();
             System.exit(-1);
         }
@@ -207,12 +208,12 @@ public class TestDB {
         try {
             preparedStatement = connection.prepareStatement("SELECT firstname, lastname, votecount FROM candidates");
             resultSet = preparedStatement.executeQuery();
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
-            xAxis.setLabel("America");
+            CategoryAxis xAxis = new CategoryAxis();
+            NumberAxis yAxis = new NumberAxis();
+            xAxis.setLabel("Candidates");
             yAxis.setLabel("Votes");
             while(resultSet.next()) {
-                String name = resultSet.getString("firstname") + resultSet.getString("lastname");
+                String name = resultSet.getString("firstname") + " " +resultSet.getString("lastname");
                 Integer votes = resultSet.getInt("votecount");
                 series.getData().add(new XYChart.Data<>(name, votes));
             }

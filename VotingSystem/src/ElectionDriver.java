@@ -9,6 +9,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ElectionDriver extends Application {
+    private static Scene startScene;
+
+    public static Scene getStartScene() {
+        return startScene;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -18,7 +23,8 @@ public class ElectionDriver extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("VotingSystemMain.fxml"));
-        primaryStage.setScene(new Scene(root));
+        startScene = new Scene(root);
+        primaryStage.setScene(startScene);
         primaryStage.show(); //being stage
     }
 }

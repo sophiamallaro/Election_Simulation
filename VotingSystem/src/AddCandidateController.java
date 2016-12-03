@@ -7,10 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -22,6 +25,7 @@ import java.util.ResourceBundle;
 import java.util.ResourceBundle;
 
 public class AddCandidateController implements Initializable {
+
     List<Position> positions;
     private TestDB data = new TestDB();
     Candidate newCandidate = new Candidate();
@@ -64,15 +68,26 @@ public class AddCandidateController implements Initializable {
     @FXML
     public void positionSelected() throws Exception {
         String selected = positionSelect.getValue().toString();
+        //System.out.println("Selected is " + selected);
         Integer positionID = data.getPositionID(selected);
+        //System.out.println("The position ID is " + positionID);
         newCandidate.setPositionid(positionID);
     }
 
     @FXML
-    public void submitButtonPressed() throws Exception {
-        newCandidate.setFirstName(candidateFirstName.getText());
-        newCandidate.setLastName(candidateLastName.getText());
-        data.addCandidate(newCandidate);
-
+    public void submitButtonPressed(ActionEvent event) throws Exception {
+        try {
+            newCandidate.setFirstName(candidateFirstName.getText());
+            newCandidate.setLastName(candidateLastName.getText());
+            data.addCandidate(newCandidate);
+            Node node = (Node) submitButton;
+            Stage myStage = (Stage) node.getScene().getWindow();
+            myStage.setScene(ElectionDriver.getStartScene());
+            myStage.show();
+        }
+        catch (NullPointerException ex)  {
+            candidateFirstName.setText("Enter First Name");
+            candidateFirstName.selectAll();
+        }
     }
 }

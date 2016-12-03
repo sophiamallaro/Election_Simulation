@@ -93,7 +93,7 @@ public class AuditorController extends StateControl implements Initializable{
                 myStage.show();
             }
         } catch (NullPointerException npe) {
-            System.out.print("The <ButtonName>.fxml file does not exist");
+            System.out.print("The " + getButtonPressed() + ".fxml file does not exist");
             generateButton.getScene().getWindow().hide();
         }
     }
