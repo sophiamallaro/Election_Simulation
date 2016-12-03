@@ -14,10 +14,10 @@
       <Label fx:id="lastName" layoutX="108.0" layoutY="236.0" text="Last Name" />
       <TextField fx:id="candidateLastName" layoutX="331.0" layoutY="226.0" />
       <Label fx:id="party" layoutX="178.0" layoutY="347.0" text="Party" />
-      <ComboBox fx:id="partySelect" layoutX="331.0" layoutY="337.0" prefHeight="45.0" prefWidth="372.0" />
+      <ComboBox fx:id="partySelect" layoutX="331.0" layoutY="337.0" onAction="#partySelected" prefHeight="45.0" prefWidth="372.0" />
       <Label layoutX="143.0" layoutY="456.0" text="Position" />
-      <ComboBox fx:id="positionSelect" layoutX="331.0" layoutY="446.0" prefHeight="65.0" prefWidth="372.0" />
-      <Button layoutX="559.0" layoutY="547.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="189.0" text="Submit" />
+      <ComboBox fx:id="positionSelect" layoutX="331.0" layoutY="446.0" onAction="#positionSelected" prefHeight="65.0" prefWidth="372.0" />
+      <Button fx:id="submitButton" layoutX="559.0" layoutY="547.0" mnemonicParsing="false" onAction="#submitButtonPressed" prefHeight="65.0" prefWidth="189.0" text="Submit" />
       <Label layoutX="275.0" layoutY="38.0" text="Add Candidate">
          <font>
             <Font size="37.0" />
