@@ -70,15 +70,9 @@ public class AddCandidateController implements Initializable {
 
     @FXML
     public void submitButtonPressed() throws Exception {
+        newCandidate.setFirstName(candidateFirstName.getText());
+        newCandidate.setLastName(candidateLastName.getText());
+        data.addCandidate(newCandidate);
 
-        try {
-            newCandidate.setFirstName(candidateFirstName.getText());
-            newCandidate.setLastName(candidateLastName.getText());
-            data.addCandidate(newCandidate);
-        }
-        catch (NullPointerException ex)  {
-            candidateFirstName.setText("Enter First Name");
-            candidateFirstName.selectAll();
-        }
     }
 }
