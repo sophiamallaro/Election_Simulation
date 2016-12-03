@@ -12,10 +12,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StateAndPrecinctController">
    <children>
-      <Button fx:id="auditor" layoutX="199.0" layoutY="188.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="354.0" text="Auditor" />
-      <Button fx:id="precint" layoutX="199.0" layoutY="288.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="354.0" text="Precint" />
+      <Button fx:id="auditor" layoutX="199.0" layoutY="188.0" mnemonicParsing="false" onAction="#displayStateAndPrecinct" prefHeight="65.0" prefWidth="354.0" text="Auditor" />
+      <Button fx:id="precint" layoutX="199.0" layoutY="288.0" mnemonicParsing="false" onAction="#displayStateAndPrecinct" prefHeight="65.0" prefWidth="354.0" text="Precint" />
       <Button fx:id="vote" layoutX="200.0" layoutY="382.0" mnemonicParsing="false" onAction="#displayStateAndPrecinct" prefHeight="65.0" prefWidth="354.0" text="Vote" />
-      <Button fx:id="results" layoutX="200.0" layoutY="481.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="354.0" text="Results" />
+      <Button fx:id="results" layoutX="200.0" layoutY="481.0" mnemonicParsing="false" onAction="#displayStateAndPrecinct" prefHeight="65.0" prefWidth="354.0" text="Results" />
       <Label layoutX="353.0" layoutY="76.0" />
       <Label layoutX="277.0" layoutY="88.0" prefHeight="66.0" prefWidth="199.0" text="Welcome ">
          <font>
