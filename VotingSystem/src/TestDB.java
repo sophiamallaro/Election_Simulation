@@ -20,6 +20,7 @@ public class TestDB {
 
     TestDB() {
         try {
+
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch(SQLException ex) {
             System.out.println("Uh oh. Something went wrong.");
