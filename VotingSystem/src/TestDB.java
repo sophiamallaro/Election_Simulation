@@ -14,18 +14,12 @@ public class TestDB {
     private PreparedStatement preparedStatement;
     private PreparedStatement statementtwo;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         TestDB tdb = new TestDB();
-        /*Candidate hillary = new Candidate("Hillary", "Clinton", "Democrat", 1);
-        Candidate donald = new Candidate("Donald", "Trump", "Republican", 1);
-        Candidate mike = new Candidate("Mike", "Pence", "Repubilcan", 2);
-        Candidate tim = new Candidate("Tim", "Kaine", "Democrat", 2);
-        tdb.addCandidate(hillary);
-        tdb.addCandidate(donald);
-        tdb.addCandidate(mike);
-        tdb.addCandidate(tim);*/
-
-        //tdb.findCandidates(1);
+        List<Position> candidates = tdb.getPositions("0101");
+        for(Position position : candidates) {
+            System.out.println(position.getPositiontitle());
+        }
     }
 
     TestDB() {
@@ -33,7 +27,6 @@ public class TestDB {
 
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch(SQLException ex) {
-            //System.out.println("Uh oh. Something went wrong.");
             ex.printStackTrace();
             System.exit(-1);
         }
@@ -50,24 +43,27 @@ public class TestDB {
             preparedStatement.executeUpdate();
         } catch(SQLException ex) {
             ex.printStackTrace();
-            System.exit(0);
-        } //hi
+            System.exit(-1);
+        }
     }
 
-   /* public void addPosition(Candidate candidate) {
+    public Integer getPositionID(String name) {
+        List<State> states = new ArrayList<>();
+        ResultSet resultSet = null;
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO position" + "(firstname, lastname, party, voteCount, positionid) VALUES" + "(?,?,?,?,?,?)" );
-            preparedStatement.setString(1, candidate.getFirstName());
-            preparedStatement.setString(2, candidate.getLastName());
-            preparedStatement.setString(3, candidate.getParty());
-            preparedStatement.setInt(4, candidate.getVoteCount());
-            preparedStatement.setInt(5, candidate.getPositionid());
-            preparedStatement.executeUpdate();
-        } catch(SQLException ex) {
+            preparedStatement = connection.prepareStatement("SELECT * FROM positions");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getString("positiontitle").equals(name)) {
+                    return resultSet.getInt("addressid");
+                }
+            }
+        } catch (SQLException ex) {
             ex.printStackTrace();
-            System.exit(0);
-        } //hi
-    }*/
+            System.exit(-1);
+        }
+        return null;
+    }
 
     public void findCandidates(int positionID) {
         List<Candidate> candidates = new ArrayList<>();
@@ -82,7 +78,8 @@ public class TestDB {
                 }
             }
         } catch(SQLException ex) {
-            System.out.println("Something went wrong");
+            ex.printStackTrace();
+            System.exit(-1);
         }
     }
 
@@ -96,7 +93,8 @@ public class TestDB {
                 states.add(new State(resultSet.getInt("addressid"), resultSet.getString("stateName")));
             }
         } catch(SQLException ex) {
-            System.out.println("Something went wrong HERE");
+            ex.printStackTrace();
+            System.exit(-1);
         }
         return states;
     }
@@ -107,15 +105,40 @@ public class TestDB {
         try {
             preparedStatement = connection.prepareStatement("SELECT * FROM states");
             resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                if(resultSet.getString("statename").equals(name)) {
+            while (resultSet.next()) {
+                if (resultSet.getString("statename").equals(name)) {
                     return resultSet.getInt("addressid");
                 }
             }
-        } catch(SQLException ex) {
-            System.out.println("Something went wrong");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
         }
         return null;
+    }
+
+    public List<Position> getPositions(String idCode) { //Return list of positions available to a precinct
+        List<Position> positions = new ArrayList<>();
+        ResultSet resultSet = null;
+        char[] idCodeArray = idCode.toCharArray();
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM position");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                char[] codeArray = resultSet.getString("availableprecincts").toCharArray();
+                if((codeArray[0] == '0') && (codeArray[1] == '0')) {
+                    positions.add(new Position(resultSet.getInt("positionid"), resultSet.getString("positiontitle"), resultSet.getString("availableprecincts")));
+                } else if((codeArray[0] == idCodeArray[0]) && (codeArray[1] == idCodeArray[1])) {
+                    if(((codeArray[2] == '0') && (codeArray[3] == '0')) ||  ((idCodeArray[2] == codeArray[2]) && (idCodeArray[3] == codeArray[3]))){
+                        positions.add(new Position(resultSet.getInt("positionid"), resultSet.getString("positiontitle"), resultSet.getString("availableprecincts")));
+                    }
+                }
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        return positions;
     }
 
     public List<Precinct> getPrecincts(int stateid) {
@@ -130,9 +153,30 @@ public class TestDB {
                 }
             }
         } catch(SQLException ex) {
-            System.out.println("Error");
+            ex.printStackTrace();
+            System.exit(-1);
         }
         return precincts;
     }
+
+    public List<Candidate> getCandidates(int findpositionID) { //Return list of positions available to a precinct
+        ResultSet resultSet = null;
+        List<Candidate> candidates = new ArrayList<Candidate>();
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM candidates");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                if(resultSet.getInt("positionID")==findpositionID) {
+                    candidates.add(new Candidate(resultSet.getInt("candidateid"), resultSet.getString("firstName"), resultSet.getString("lastName"), resultSet.getString("party"), resultSet.getInt("voteCount"), resultSet.getInt("positionid")));
+                }
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        return candidates;
+    }
+
+
 
 }

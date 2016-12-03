@@ -18,6 +18,16 @@ public class Candidate {
         this.positionid = positionid;
     }
 
+    public Candidate(int candidateid, String firstName, String lastName, String party, int voteCount, int positionid) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.party = party;
+        this.voteCount = 0;
+        this.positionid = positionid;
+        this.voteCount = voteCount;
+        this.candidateid = candidateid;
+    }
+
     public int getCandidateid() {
         return candidateid;
     }
