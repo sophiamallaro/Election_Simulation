@@ -1,6 +1,7 @@
 /**
  * Created by Sophia on 12/2/2016.
  */
+
 public class Candidate {
     private int candidateid;
     private String firstName;
