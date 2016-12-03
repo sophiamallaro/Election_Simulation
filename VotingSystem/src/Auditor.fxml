@@ -10,7 +10,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8.0.102-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AuditorController">
    <children>
       <ComboBox fx:id="stateSelect" layoutX="250.0" layoutY="110.0" onAction="#stateSelected" prefHeight="50.0" prefWidth="332.0" />
-      <ComboBox fx:id="precinct" layoutX="250.0" layoutY="201.0" prefHeight="50.0" prefWidth="332.0" />
+      <ComboBox fx:id="precinct" layoutX="250.0" layoutY="201.0" onAction="#precinctSelected" prefHeight="50.0" prefWidth="332.0" />
       <Label fx:id="stateButton" alignment="CENTER_RIGHT" contentDisplay="TOP" layoutX="34.0" layoutY="118.0" prefHeight="30.0" prefWidth="175.0" text="Select State">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -21,7 +21,7 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="generateButton" layoutX="250.0" layoutY="289.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="332.0" text="Continue">
+      <Button fx:id="generateButton" layoutX="250.0" layoutY="289.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="35.0" prefWidth="332.0" text="Continue">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
