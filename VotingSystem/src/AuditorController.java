@@ -20,6 +20,8 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 /**
+ *
+ * @author Sophia Mallaro
  * Created by smallaro on 12/2/16.
  */
 public class AuditorController extends StateControl implements Initializable{

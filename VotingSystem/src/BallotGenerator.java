@@ -1,6 +1,8 @@
 import java.util.List;
 
 /**
+ *
+ * @author Sophia Mallaro
  * Created by smallaro on 12/3/16.
  */
 public class BallotGenerator {

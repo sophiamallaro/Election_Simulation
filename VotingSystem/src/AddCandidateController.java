@@ -1,7 +1,16 @@
 /**
+ * This class is the controller for the Auditor.fxml GUI. The class
+ * handles the function of adding candidates. After the user has
+ * selected the state and the precinct, the Auditor.fxml GUI will appear
+ * prompting for first name, last name, party, and position. When the
+ * submit button is pressed, the candidate details will be added to
+ * the database.
+ *
+ * This class implements the Initializable interface.
+ *
+ *@author Alya Mohd
  * Created by Tengku on 12/2/2016.
  */
-
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,12 +35,11 @@ import java.util.ResourceBundle;
 
 public class AddCandidateController implements Initializable {
 
-    List<Position> positions;
-    private TestDB data = new TestDB();
-    Candidate newCandidate = new Candidate();
-    List<String> titleNames;
-    List<Position>  offices;
+    List<Position> positions;                       //Stores a list of Position objects
+    private TestDB data = new TestDB();             //initializes a TestDB class
+    Candidate newCandidate = new Candidate();       //intializes a Candidate class
 
+    //GUI controls defined in FXML and used by the controller's code
     @FXML
     TextField candidateFirstName;
 
@@ -47,11 +55,14 @@ public class AddCandidateController implements Initializable {
     @FXML
     Button submitButton;
 
+    //called by FXMLLoader to initialize the controller
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         partySelect.getItems().clear();
-        partySelect.getItems().addAll("Democrat", "Republican", "Green Party", "Independent", "Libertarian");
-        List<Position>  offices = data.getPositions("1502");
+        partySelect.getItems().addAll("Democrat", "Republican", "Green Party", "Independent", "Libertarian");   //provide the options for the party combo box
+
+        List<Position>  offices = data.getPositions("1502"); //<--------check the idCode to get from the AuditorController
+
         List<String> titleNames = new ArrayList<>();
         for(Position position : offices) {
             titleNames.add(position.getPositiontitle());
@@ -60,11 +71,21 @@ public class AddCandidateController implements Initializable {
         positionSelect.getItems().addAll(titleNames);
     }
 
+    /**
+     * Set the new candidate party association in the newCandidate object to
+     * the party selected by the user from the combobox.
+     * @throws Exception
+     */
     @FXML
     public void partySelected() throws Exception {
         newCandidate.setParty(partySelect.getValue().toString());
     }
 
+    /**
+     * Set the new candidate position title in the newCandidate object to the
+     * position selected by the user from the combobox.
+     * @throws Exception
+     */
     @FXML
     public void positionSelected() throws Exception {
         String selected = positionSelect.getValue().toString();
@@ -74,6 +95,19 @@ public class AddCandidateController implements Initializable {
         newCandidate.setPositionid(positionID);
     }
 
+    /**
+     *Submit the new candidate details to the database.
+     *
+     * After the submit button is pressed, the program will receive
+     * the first name and last name of the new candidate from the text field.
+     * The first name and last name will be stored the newCandidate object
+     * under variable firstName and lastName. Then the new candidate
+     * details will be added to the database.
+     *
+     * The GUI will then return to the main menu
+     *
+     * @throws Exception
+     */
     @FXML
     public void submitButtonPressed() throws Exception {
         try {

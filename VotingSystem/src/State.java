@@ -1,5 +1,8 @@
 /**
+ *
+ * @author Sophia Mallaro
  * Created by smallaro on 12/2/16.
+ *
  */
 public class State {
     private int id;

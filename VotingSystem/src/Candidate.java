@@ -1,4 +1,6 @@
 /**
+ *
+ * @author Sophia Mallaro
  * Created by Sophia on 12/2/2016.
  */
 
@@ -10,10 +12,20 @@ public class Candidate {
     private int voteCount;
     private int positionid;
 
+    /**
+     *
+     */
     public Candidate()  {
         this.voteCount = 0;
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param party
+     * @param positionid
+     */
     public Candidate(String firstName, String lastName, String party, int positionid) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,6 +34,15 @@ public class Candidate {
         this.positionid = positionid;
     }
 
+    /**
+     *
+     * @param candidateid
+     * @param firstName
+     * @param lastName
+     * @param party
+     * @param voteCount
+     * @param positionid
+     */
     public Candidate(int candidateid, String firstName, String lastName, String party, int voteCount, int positionid) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,6 +53,10 @@ public class Candidate {
         this.candidateid = candidateid;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCandidateid() {
         return candidateid;
     }
@@ -40,42 +65,82 @@ public class Candidate {
         //this.candidateid = candidateid;
     //}
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getParty() {
         return party;
     }
 
+    /**
+     *
+     * @param party
+     */
     public void setParty(String party) {
         this.party = party;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getVoteCount() {
         return voteCount;
     }
 
+    /**
+     *
+     * @param voteCount
+     */
     public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPositionid() {
         return positionid;
     }
 
+    /**
+     *
+     * @param positionid
+     */
     public void setPositionid(int positionid) {
         this.positionid = positionid;
     }
