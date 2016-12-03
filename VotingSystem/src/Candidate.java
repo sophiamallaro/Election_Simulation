@@ -10,6 +10,10 @@ public class Candidate {
     private int voteCount;
     private int positionid;
 
+    public Candidate()  {
+        this.voteCount = 0;
+    }
+
     public Candidate(String firstName, String lastName, String party, int positionid) {
         this.firstName = firstName;
         this.lastName = lastName;
