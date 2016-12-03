@@ -9,8 +9,7 @@ public class Candidate {
     private int voteCount;
     private int positionid;
 
-    public Candidate(int candidateid, String firstName, String lastName, String party, int positionid) {
-        this.candidateid = candidateid;
+    public Candidate(String firstName, String lastName, String party, int positionid) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.party = party;
@@ -22,9 +21,9 @@ public class Candidate {
         return candidateid;
     }
 
-    public void setCandidateid(int candidateid) {
-        this.candidateid = candidateid;
-    }
+    //public void setCandidateid(int candidateid) {
+        //this.candidateid = candidateid;
+    //}
 
     public String getFirstName() {
         return firstName;
