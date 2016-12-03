@@ -15,16 +15,6 @@ public class TestDB {
 
     public static void main(String[] args) {
         TestDB tdb = new TestDB();
-        /*List<Position> candidates = tdb.getPositionsWithCandidates("0101");
-        for(Position position : candidates) {
-            System.out.println(position.getPositiontitle());
-            for(Candidate candidate: position.getCandidates()) {
-                System.out.println(candidate.getFirstName() + " " + candidate.getLastName() + ", " + candidate.getParty());
-            }
-            System.out.println();
-        }*/
-        Integer bob = tdb.getPositionID("President");
-
     }
 
     TestDB() {

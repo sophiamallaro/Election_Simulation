@@ -20,8 +20,8 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.ResourceBundle;
 
-public class AddCandidateController implements Initializable {
-    List<Position> positions;
+//public class AddCandidateController implements Initializable {
+    /*List<Position> positions;
     private TestDB data = new TestDB();
     private String partySelected;
     Candidate newCandidate = new Candidate();
@@ -65,5 +65,5 @@ public class AddCandidateController implements Initializable {
     @FXML
     public void submitButtonPressed(ActionEvent event) throws Exception {
         data.addCandidate(newCandidate);
-    }
-}
+    }*/
+//}
