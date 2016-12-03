@@ -21,7 +21,7 @@ public class TestDB {
 
     public static void main(String[] args) {
         TestDB tdb = new TestDB();
-        //tdb.voteFor("Donald Trump, Republican");
+        tdb.addPrecinct("12", "01");
     }
 
     TestDB() {
@@ -48,6 +48,19 @@ public class TestDB {
             System.exit(-1); //hello
         }
     }
+
+    public void addPrecinct(String stateid, String precinctid) {
+        try {
+            preparedStatement = connection.prepareStatement("INSERT INTO precincts" + "(stateid, precinctid) VALUES" + "(?,?)" );
+            preparedStatement.setInt(1, Integer.parseInt(stateid));
+            preparedStatement.setString(2, precinctid);
+            preparedStatement.executeUpdate();
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
 
     public Integer getPositionID(String name) {
         List<State> states = new ArrayList<>();

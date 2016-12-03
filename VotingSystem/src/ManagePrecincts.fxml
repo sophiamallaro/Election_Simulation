@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ManagePrecinctsController">
+   <children>
+      <Label alignment="CENTER" layoutY="14.0" prefHeight="59.0" prefWidth="346.0" text="Add Office" textFill="#cf0808">
+         <font>
+            <Font name="Goodfish" size="48.0" />
+         </font>
+      </Label>
+      <TextField fx:id="name" layoutX="140.0" layoutY="95.0" prefHeight="29.0" prefWidth="196.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="95.0" prefHeight="29.0" prefWidth="131.0" text="Officer Title">
+         <font>
+            <Font name="Goodfish Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutY="156.0" prefHeight="25.0" prefWidth="131.0" text="Domain" textAlignment="RIGHT">
+         <font>
+            <Font name="Goodfish Bold" size="20.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="domain" layoutX="140.0" layoutY="154.0" prefHeight="29.0" prefWidth="196.0" />
+      <Button fx:id="add" layoutX="149.0" layoutY="200.0" mnemonicParsing="false" onAction="#addPressed" prefHeight="35.0" prefWidth="179.0" text="Add">
+         <font>
+            <Font name="Goodfish Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

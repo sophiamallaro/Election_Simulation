@@ -68,20 +68,14 @@ public class VoteController extends Application {
             @Override
             public void handle(javafx.event.ActionEvent event) {
                 for(ToggleGroup group : buttonGroups) {
-                    //System.out.println(group.getSelectedToggle().toString().split("'")[1]);
-                    data.voteFor(group.getSelectedToggle().toString().split("'")[1]);
+                    if(group.getSelectedToggle() != null) {
+                        data.voteFor(group.getSelectedToggle().toString().split("'")[1]);
+                    }
                 }
                 stage.setScene(ElectionDriver.getStartScene());
             }
         });
 
-        //Add Action listener to vote button to do the vote count incrementing
-
-
-
-
-
-        //stage.show();
     }
 
     public static void main(String[] args) {
