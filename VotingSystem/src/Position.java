@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Created by smallaro on 12/2/16.
  */
@@ -5,11 +7,20 @@ public class Position {
     private int positionid;
     private String positiontitle;
     private String availableprecincts;
+    private List<Candidate> candidates;
 
     public Position(int positionid, String positiontitle, String availableprecincts) {
         this.positionid = positionid;
         this.positiontitle = positiontitle;
         this.availableprecincts = availableprecincts;
+        this.candidates = null;
+    }
+
+    public Position(int positionid, String positiontitle, String availableprecincts, List<Candidate> candidates) {
+        this.positionid = positionid;
+        this.positiontitle = positiontitle;
+        this.availableprecincts = availableprecincts;
+        this.candidates = candidates;
     }
 
     public int getPositionid() {
@@ -34,5 +45,13 @@ public class Position {
 
     public void setAvailableprecincts(String availableprecincts) {
         this.availableprecincts = availableprecincts;
+    }
+
+    public List<Candidate> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(List<Candidate> candidates) {
+        this.candidates = candidates;
     }
 }

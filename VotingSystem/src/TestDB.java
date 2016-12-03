@@ -16,9 +16,13 @@ public class TestDB {
 
     public static void main(String[] args) {
         TestDB tdb = new TestDB();
-        List<Position> candidates = tdb.getPositions("0101");
+        List<Position> candidates = tdb.getPositionsWithCandidates("0101");
         for(Position position : candidates) {
             System.out.println(position.getPositiontitle());
+            for(Candidate candidate: position.getCandidates()) {
+                System.out.println(candidate.getFirstName() + candidate.getLastName());
+            }
+            System.out.println();
         }
     }
 
@@ -177,6 +181,28 @@ public class TestDB {
         return candidates;
     }
 
-
+    public List<Position> getPositionsWithCandidates(String idCode) {
+        List<Position> positions = new ArrayList<>();
+        ResultSet resultSet = null;
+        char[] idCodeArray = idCode.toCharArray();
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM position");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                char[] codeArray = resultSet.getString("availableprecincts").toCharArray();
+                if((codeArray[0] == '0') && (codeArray[1] == '0')) {
+                    positions.add(new Position(resultSet.getInt("positionid"), resultSet.getString("positiontitle"), resultSet.getString("availableprecincts"), getCandidates(resultSet.getInt("positionid"))));
+                } else if((codeArray[0] == idCodeArray[0]) && (codeArray[1] == idCodeArray[1])) {
+                    if(((codeArray[2] == '0') && (codeArray[3] == '0')) ||  ((idCodeArray[2] == codeArray[2]) && (idCodeArray[3] == codeArray[3]))){
+                        positions.add(new Position(resultSet.getInt("positionid"), resultSet.getString("positiontitle"), resultSet.getString("availableprecincts"), getCandidates(resultSet.getInt("positionid"))));
+                    }
+                }
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        return positions;
+    }
 
 }
