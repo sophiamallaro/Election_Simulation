@@ -8,6 +8,7 @@ import javafx.scene.chart.XYChart;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TestDB {
@@ -229,32 +230,44 @@ public class TestDB {
         }
     }
 
-    public BarChart<String, ? extends Number> loadChart() {
+    public BarChart<String, ? extends Number> loadChart(int positionToLoad) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         ResultSet resultSet = null;
-        try {
-            //List<Position> candidates = getPositionsWithCandidates(AuditorController.getIdCode());
-            //for(Position position : candidates) {
+        List<Candidate> candidates = new ArrayList<>();
+        //try {
+            List<Position> offices = getPositionsWithCandidates(StateControl.getIdCode());
+            for(Position position : offices) {
+                System.out.println("Position ID is " + position.getPositionid());
+                if(position.getPositionid() == positionToLoad) {
+                    System.out.println("Found matching position!");
+                    candidates = position.getCandidates();
+                    for(Candidate candidate : candidates) {
+                        String name = candidate.getFirstName() + " " + candidate.getLastName();
+                        Integer votes = candidate.getVoteCount();
+                        System.out.println("Name: " + name + ", Votes:  " + votes);
+                        series.getData().add(new XYChart.Data<>(name, votes));
+                    }
+                }
 
-            //}
-            preparedStatement = connection.prepareStatement("SELECT firstname, lastname, votecount FROM candidates");
-            resultSet = preparedStatement.executeQuery();
+            }
+            //preparedStatement = connection.prepareStatement("SELECT firstname, lastname, votecount FROM candidates");
+            //resultSet = preparedStatement.executeQuery();
             CategoryAxis xAxis = new CategoryAxis();
             NumberAxis yAxis = new NumberAxis();
             xAxis.setLabel("Candidates");
             yAxis.setLabel("Votes");
-            while(resultSet.next()) {
-                String name = resultSet.getString("firstname") + " " +resultSet.getString("lastname");
-                Integer votes = resultSet.getInt("votecount");
-                series.getData().add(new XYChart.Data<>(name, votes));
-            }
+            //while(resultSet.next()) {
+            //    String name = resultSet.getString("firstname") + " " +resultSet.getString("lastname");
+            //    Integer votes = resultSet.getInt("votecount");
+            //    series.getData().add(new XYChart.Data<>(name, votes));
+            //}
             BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
             bc.setTitle("Election Results");
             bc.getData().add(series);
             return bc;
-        } catch (SQLException sql) {
-            System.out.println("Bad move dude");
-        }
-        return null;
+        //} catch (SQLException sql) {
+        //    System.out.println("Bad move dude");
+        //}
+        //return null;
     }
 }
