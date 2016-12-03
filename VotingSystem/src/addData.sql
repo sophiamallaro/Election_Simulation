@@ -209,7 +209,7 @@ VALUES ('Terry', 'Branstad', 'Republican', 0, 4),
 
 
 
-        UPDATE candidates SET voteCount=100 WHERE candidateid=1;
+        UPDATE candidates SET voteCount=0 WHERE candidateid=2;
 
 
 

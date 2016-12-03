@@ -1,11 +1,6 @@
 /**
  * Created by Sophia on 12/2/2016.
  */
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +12,11 @@ public class TestDB {
 
     private Connection connection;
     private PreparedStatement preparedStatement;
+    private PreparedStatement preparedStatement2;
 
     public static void main(String[] args) {
         TestDB tdb = new TestDB();
+        //tdb.voteFor("Donald Trump, Republican");
     }
 
     TestDB() {
@@ -59,7 +56,6 @@ public class TestDB {
                 }
             }
         } catch (SQLException ex) {
-            System.out.println("I'm catching an error");
             ex.printStackTrace();
             System.exit(-1);
         }
@@ -202,29 +198,16 @@ public class TestDB {
         return positions;
     }
 
-    public BarChart<String, ? extends Number> loadChart() {
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        ResultSet resultSet = null;
+    public void voteFor(String identifier) { //vote for a candidate
+        String[] identities = identifier.replace(',', ' ').split("\\s+");
         try {
-            preparedStatement = connection.prepareStatement("SELECT firstname, lastname, votecount FROM candidates");
-            resultSet = preparedStatement.executeQuery();
-            CategoryAxis xAxis = new CategoryAxis();
-            NumberAxis yAxis = new NumberAxis();
-            xAxis.setLabel("Candidates");
-            yAxis.setLabel("Votes");
-            while(resultSet.next()) {
-                String name = resultSet.getString("firstname") + " " +resultSet.getString("lastname");
-                Integer votes = resultSet.getInt("votecount");
-                series.getData().add(new XYChart.Data<>(name, votes));
-            }
-            BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
-            bc.setTitle("Election Results");
-            bc.getData().add(series);
-            return bc;
-        } catch (SQLException sql) {
-            System.out.println("Bad move dude");
+            preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = voteCount+1 where firstname = ? and lastname = ?");
+            preparedStatement.setString(1, identities[0]);
+            preparedStatement.setString(2, identities[1]);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
         }
-        return null;
     }
-
 }
