@@ -180,6 +180,8 @@ VALUES
 (11, '01'),
 (11, '02');
 
+INSERT INTO position(positionTitle, availablePrecincts)
+VALUES ('House of Representatives', '0101');
 
 
 
