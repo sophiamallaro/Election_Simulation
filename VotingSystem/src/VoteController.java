@@ -24,7 +24,13 @@ import java.util.ResourceBundle;
 
 /**
  * This Vote Controller is the controller class for the Vote interface.
- * The cont
+ * After the user has chosen the state and the precinct on the previous
+ * interface, the ballot will appear. The positions and candidates for
+ * those positions will be listed based on the selected state and precinct.
+ *
+ * After the candidates are selected and the vote button is pressed,
+ * the program will register the vote to the database and the program will
+ * return to the main menu.
  *
  * @author Sophia Mallaro
  * @see TestDB
@@ -35,11 +41,11 @@ public class VoteController extends Application {
     private static final TestDB data = new TestDB();
     private List<ToggleGroup> buttonGroups;
 
-    //
+    //default constructor
     VoteController() {
-
     }
 
+    //set up the stage
     public void start(Stage stage) {
         //Set up GUI
         VBox box = new VBox();
@@ -47,10 +53,12 @@ public class VoteController extends Application {
         stage.setScene(scene);
         buttonGroups = new ArrayList<ToggleGroup>();
 
+        //Set title on the stage
         Label title = new Label("OFFICAL GENERAL ELECTION BALLOT");
         title.setFont(Font.font("Helvetica-Bold", 20));
         box.getChildren().add(title);
 
+        //Search through the database for the candidates and list them on the scene
         List<Position> candidates = data.getPositionsWithCandidates(AuditorController.getIdCode());
         for(Position position : candidates) {
             ToggleGroup group = new ToggleGroup();
@@ -68,10 +76,12 @@ public class VoteController extends Application {
             box.getChildren().add(blank);
         }
 
+        //Set up vote button on the scene
         Button voteButton = new Button("VOTE");
         voteButton.setFont(Font.font("Helvetica-Bold", 14));
         box.getChildren().add(voteButton);
 
+        //Register the vote to the database
         voteButton.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
