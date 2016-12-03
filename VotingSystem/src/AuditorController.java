@@ -22,14 +22,10 @@ import java.util.ResourceBundle;
 /**
  * Created by smallaro on 12/2/16.
  */
-public class AuditorController implements Initializable{
+public class AuditorController extends StateControl implements Initializable{
     private TestDB data = new TestDB();
     private ObservableList precinctList;
     List<State> states;
-    private static String idCode;
-    private static String buttonPressed;
-    private String stateID;
-    private String precinctID;
 
     @FXML
     ComboBox<String> stateSelect;
@@ -42,7 +38,7 @@ public class AuditorController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("The button pressed was " + buttonPressed);
+        System.out.println("The button pressed was " + getButtonPressed());
         states = data.getStates();
         List<String> stateNames = new ArrayList<>();
         for(State state : states) {
@@ -62,7 +58,7 @@ public class AuditorController implements Initializable{
         for(State state : states) {
             if(state.getStateName().equals(stateSelect.getValue())) {
                 int id = state.getId();
-                stateID = Integer.toString(id);
+                setStateID(Integer.toString(id));
                 List<Precinct> precincts = data.getPrecincts(id);
                 List<String> precinctNames = new ArrayList<>();
                 for(Precinct precinct : precincts) {
@@ -76,34 +72,30 @@ public class AuditorController implements Initializable{
 
     @FXML
     public void precinctSelected() throws Exception{
-        precinctID = precinct.getValue();
+        setPrecinctID(precinct.getValue());
     }
 
     @FXML
     public void buttonPressed() throws Exception { //Generates full id code for precinct
-        idCode = stateID + precinctID;
-        if (idCode.length() == 3) {
-            idCode = "0" + idCode;
+        setIdCode(getStateID() + getPrecinctID());
+        if (getIdCode().length() == 3) {
+            setIdCode("0" + getIdCode());
         }
         try {
             Node node = (Node) generateButton;
             Stage myStage = (Stage) node.getScene().getWindow();
-            Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(buttonPressed + ".fxml"));
+            //Requires that button names DO NOT CHANGE
+            Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(getButtonPressed() + ".fxml"));
             myStage.setScene(new Scene(stateAndPrecinct));
             myStage.show();
         } catch (NullPointerException npe) {
-            System.out.print("UNEXPECTED ERROR");
+            System.out.print("The <ButtonName>.fxml file does not exist");
             generateButton.getScene().getWindow().hide();
         }
     }
 
-    public static String getID() { //Returns a static variable representnig the ID Code
-        return AuditorController.idCode;
-    }
-
-    //Sets the button that generated this interface
-    public static void setButtonPressed(String buttonSource) {
-        buttonPressed = buttonSource;
-    }
+    //public static String getID() { //Returns a static variable representnig the ID Code
+    //    return AuditorController.idCode;
+    //}
 
 }
