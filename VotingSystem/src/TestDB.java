@@ -1,6 +1,11 @@
 /**
  * Created by Sophia on 12/2/2016.
  */
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -209,5 +214,30 @@ public class TestDB {
             ex.printStackTrace();
             System.exit(-1);
         }
+    }
+
+    public BarChart<String, ? extends Number> loadChart() {
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT firstname, lastname, votecount FROM candidates");
+            resultSet = preparedStatement.executeQuery();
+            CategoryAxis xAxis = new CategoryAxis();
+            NumberAxis yAxis = new NumberAxis();
+            xAxis.setLabel("Candidates");
+            yAxis.setLabel("Votes");
+            while(resultSet.next()) {
+                String name = resultSet.getString("firstname") + " " +resultSet.getString("lastname");
+                Integer votes = resultSet.getInt("votecount");
+                series.getData().add(new XYChart.Data<>(name, votes));
+            }
+            BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
+            bc.setTitle("Election Results");
+            bc.getData().add(series);
+            return bc;
+        } catch (SQLException sql) {
+            System.out.println("Bad move dude");
+        }
+        return null;
     }
 }
