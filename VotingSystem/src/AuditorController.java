@@ -87,6 +87,9 @@ public class AuditorController extends StateControl implements Initializable{
             //Requires that button names DO NOT CHANGE
             if(getButtonPressed().equals("Results")) {
                 myStage.setScene(new Scene(data.loadChart()));
+            } else if (getButtonPressed().equals("Vote")) {
+                VoteController ballet = new VoteController();
+                ballet.start(myStage);
             } else {
                 Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(getButtonPressed() + ".fxml"));
                 myStage.setScene(new Scene(stateAndPrecinct));
