@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StateAndPrecinctController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="775.0" style="-fx-background-image:url('flag.jpg');" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StateAndPrecinctController">
    <children>
       <Button fx:id="auditor" layoutX="199.0" layoutY="188.0" mnemonicParsing="false" onAction="#displayStateAndPrecinct" prefHeight="65.0" prefWidth="354.0" text="Auditor" />
       <Button fx:id="precint" layoutX="199.0" layoutY="288.0" mnemonicParsing="false" onAction="#displayStateAndPrecinct" prefHeight="65.0" prefWidth="354.0" text="Precint" />
