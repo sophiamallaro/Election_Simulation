@@ -20,7 +20,7 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.ResourceBundle;
 
-public class AddCandidateController implements Initializable{
+public class AddCandidateController implements Initializable {
     List<Position> positions;
     private TestDB data = new TestDB();
     private String partySelected;
@@ -42,13 +42,13 @@ public class AddCandidateController implements Initializable{
     Button submitButton;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb)    {
+    public void initialize(URL url, ResourceBundle rb) {
         partySelect.getItems().clear();
         partySelect.getItems().addAll("Democrat", "Republican", "Green Party", "Independent", "Libertarian");
     }
 
     @FXML
-    public void partySelected() throws Exception   {
+    public void partySelected() throws Exception {
         newCandidate.setParty(partySelect.getValue().toString());
         positionSelect.getItems().addAll("President", "Vice President", "House of Representative");
     }
@@ -65,4 +65,5 @@ public class AddCandidateController implements Initializable{
         newCandidate.setFirstName(candidateFirstName.getText());
         newCandidate.setLastName(candidateLastName.getText());
 
+    }
 }

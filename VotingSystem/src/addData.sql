@@ -183,12 +183,33 @@ VALUES
 INSERT INTO position(positionTitle, availablePrecincts)
 VALUES ('House of Representatives', '0101');
 
+INSERT INTO candidates(firstName, lastName, party, voteCount, positionid)
+VALUES ('Gary', 'Johnson', 'Libertarian', 0, 1),
+        ('Jill', 'Stein', 'Green', 0, 1);
+
+
+INSERT INTO precincts(stateid, precinctid)
+VALUES (15, '01'),
+(15, '02'),
+(15, '03'),
+(15, '04');
+
+
+INSERT INTO position(positionTitle, availablePrecincts)
+VALUES ('Governor', '1500'),
+('House of Representatives', '1502');
+
+
+INSERT INTO candidates(firstName, lastName, party, voteCount, positionid)
+VALUES ('Terry', 'Branstad', 'Republican', 0, 4),
+        ('David', 'Loebsack', 'Democrat', 0, 5);
 
 
 
 
 
 
+        UPDATE candidates SET voteCount=100 WHERE candidateid=1;
 
 
 
