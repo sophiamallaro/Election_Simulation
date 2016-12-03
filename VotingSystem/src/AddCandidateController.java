@@ -75,7 +75,7 @@ public class AddCandidateController implements Initializable {
     }
 
     @FXML
-    public void submitButtonPressed(ActionEvent event) throws Exception {
+    public void submitButtonPressed() throws Exception {
         try {
             newCandidate.setFirstName(candidateFirstName.getText());
             newCandidate.setLastName(candidateLastName.getText());
