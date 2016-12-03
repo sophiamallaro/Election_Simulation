@@ -86,18 +86,18 @@ CREATE TABLE position (
 DROP TABLE IF EXISTS precincts;
 CREATE TABLE precincts (
   positionid SERIAL PRIMARY KEY NOT NULL,
-  stateid VARCHAR(2) NOT NULL,
+  stateid INT NOT NULL,
   precinctid VARCHAR(2) NOT NULL
 );
 
 INSERT INTO precincts(stateid, precinctid)
-VALUES('01', '01'),
-('01', '02'),
-('01', '03'),
-('01', '04'),
-('01', '05'),
-('01', '06'),
-('01', '07');
+VALUES(1, '01'),
+(1, '02'),
+(1, '03'),
+(1, '04'),
+(1, '05'),
+(1, '06'),
+(1, '07');
 
 
 
