@@ -40,7 +40,7 @@ public class TestDB {
             preparedStatement.executeUpdate();
         } catch(SQLException ex) {
             ex.printStackTrace();
-            System.exit(-1);
+            System.exit(-1); //hello
         }
     }
 
