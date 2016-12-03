@@ -1,12 +1,18 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +27,9 @@ public class AuditorController implements Initializable{
     private ObservableList precinctList;
     List<State> states;
     private static String idCode;
+    private static String buttonPressed;
     private String stateID;
     private String precinctID;
-    private String buttonPressed;
 
     @FXML
     ComboBox<String> stateSelect;
@@ -34,12 +40,9 @@ public class AuditorController implements Initializable{
     @FXML
     Button generateButton;
 
-    AuditorController(String event) {
-        this.buttonPressed = event;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("The button pressed was " + buttonPressed);
         states = data.getStates();
         List<String> stateNames = new ArrayList<>();
         for(State state : states) {
@@ -82,10 +85,25 @@ public class AuditorController implements Initializable{
         if (idCode.length() == 3) {
             idCode = "0" + idCode;
         }
+        try {
+            Node node = (Node) generateButton;
+            Stage myStage = (Stage) node.getScene().getWindow();
+            Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(buttonPressed + ".fxml"));
+            myStage.setScene(new Scene(stateAndPrecinct));
+            myStage.show();
+        } catch (NullPointerException npe) {
+            System.out.print("UNEXPECTED ERROR");
+            generateButton.getScene().getWindow().hide();
+        }
     }
 
     public static String getID() { //Returns a static variable representnig the ID Code
         return AuditorController.idCode;
+    }
+
+    //Sets the button that generated this interface
+    public static void setButtonPressed(String buttonSource) {
+        buttonPressed = buttonSource;
     }
 
 }
