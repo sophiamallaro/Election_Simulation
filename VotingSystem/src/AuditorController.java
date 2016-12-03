@@ -20,9 +20,10 @@ public class AuditorController implements Initializable{
     private TestDB data = new TestDB();
     private ObservableList precinctList;
     List<State> states;
-    private String idCode;
+    private static String idCode;
     private String stateID;
     private String precinctID;
+    private String buttonPressed;
 
     @FXML
     ComboBox<String> stateSelect;
@@ -32,6 +33,10 @@ public class AuditorController implements Initializable{
 
     @FXML
     Button generateButton;
+
+    AuditorController(String event) {
+        this.buttonPressed = event;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -45,6 +50,7 @@ public class AuditorController implements Initializable{
         ObservableList precinctList = FXCollections.observableList(test);
         stateSelect.setItems(obList);
         precinct.setItems(precinctList);
+        //Parent.g
     }
 
 
@@ -76,6 +82,10 @@ public class AuditorController implements Initializable{
         if (idCode.length() == 3) {
             idCode = "0" + idCode;
         }
+    }
+
+    public static String getID() { //Returns a static variable representnig the ID Code
+        return AuditorController.idCode;
     }
 
 }
