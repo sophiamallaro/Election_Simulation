@@ -27,6 +27,7 @@ public class VoteController extends Application {
     private static final TestDB data = new TestDB();
     private List<ToggleGroup> buttonGroups;
 
+
     VoteController() {
 
     }

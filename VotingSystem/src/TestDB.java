@@ -220,6 +220,10 @@ public class TestDB {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         ResultSet resultSet = null;
         try {
+            //List<Position> candidates = getPositionsWithCandidates(AuditorController.getIdCode());
+            //for(Position position : candidates) {
+
+            //}
             preparedStatement = connection.prepareStatement("SELECT firstname, lastname, votecount FROM candidates");
             resultSet = preparedStatement.executeQuery();
             CategoryAxis xAxis = new CategoryAxis();
