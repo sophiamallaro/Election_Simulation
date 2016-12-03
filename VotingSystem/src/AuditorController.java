@@ -88,7 +88,9 @@ public class AuditorController extends StateControl implements Initializable{
             if(getButtonPressed().equals("Results")) {
                 myStage.setScene(new Scene(data.loadChart()));
             } else {
-                Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(getButtonPressed() + ".fxml"));
+                //System.out.println("The file being opened will be " + getButtonPressed());
+                String fxmlToLoad = getButtonPressed() + ".fxml";
+                Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(fxmlToLoad));
                 myStage.setScene(new Scene(stateAndPrecinct));
                 myStage.show();
             }
