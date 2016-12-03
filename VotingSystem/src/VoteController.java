@@ -22,12 +22,20 @@ import java.util.List;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+/**
+ * This Vote Controller is the controller class for the Vote interface.
+ * The cont
+ *
+ * @author Sophia Mallaro
+ * @see TestDB
+ */
+
 public class VoteController extends Application {
     @FXML
     private static final TestDB data = new TestDB();
     private List<ToggleGroup> buttonGroups;
 
-
+    //
     VoteController() {
 
     }
