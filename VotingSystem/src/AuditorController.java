@@ -85,8 +85,11 @@ public class AuditorController extends StateControl implements Initializable{
             Node node = (Node) generateButton;
             Stage myStage = (Stage) node.getScene().getWindow();
             //Requires that button names DO NOT CHANGE
+            System.out.println("Try to open " + getButtonPressed());
             if(getButtonPressed().equals("Results")) {
-                myStage.setScene(new Scene(data.loadChart()));
+                //myStage.setScene(new Scene(data.loadChart()));
+                ResultsGraph graph = new ResultsGraph();
+                graph.start(myStage);
             } else if (getButtonPressed().equals("Vote")) {
                 VoteController ballet = new VoteController();
                 ballet.start(myStage);
