@@ -15,7 +15,7 @@
       </ImageView>
       <Label layoutX="189.0" layoutY="128.0" prefHeight="74.0" prefWidth="223.0" text="Welcome" textFill="#fcfcfc">
          <font>
-            <Font size="51.0" />
+            <Font name="Cambria Bold" size="51.0" />
          </font></Label>
    </children>
 </Pane>

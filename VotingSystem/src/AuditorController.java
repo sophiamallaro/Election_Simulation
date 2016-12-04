@@ -20,8 +20,15 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 /**
+ * This class is the controller for the StateAndPrecinct.fxml.
+ * The class keeps track of the state and the precinct that has been
+ * selected by the user. The StateAndPrecinct GUI is used each time
+ * any of the main menu button is pressed. This class stores the state
+ * that the user has selected and shows the precincts of the selected state.
  *
  * @author Sophia Mallaro
+ * @see TestDB
+ *
  * Created by smallaro on 12/2/16.
  */
 public class AuditorController extends StateControl implements Initializable{
@@ -29,6 +36,7 @@ public class AuditorController extends StateControl implements Initializable{
     private ObservableList precinctList;
     List<State> states;
 
+    //GUI controls defined in FXML and used by the controller's code
     @FXML
     ComboBox<String> stateSelect;
 
@@ -38,6 +46,7 @@ public class AuditorController extends StateControl implements Initializable{
     @FXML
     Button generateButton;
 
+    //called by FXMLLoader to initialize the controller
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println("The button pressed was " + getButtonPressed());
@@ -54,7 +63,12 @@ public class AuditorController extends StateControl implements Initializable{
         //Parent.g
     }
 
-
+    /**
+     * Store the stateID and generates a list of precincts to be displayed at
+     * the combobox based on the state selected.
+     *
+     * @throws Exception
+     */
     @FXML
     public void stateSelected() throws Exception{
         for(State state : states) {
@@ -72,13 +86,34 @@ public class AuditorController extends StateControl implements Initializable{
         }
     }
 
+    /**
+     * Store the precinctID of the precinct selected
+     * @throws Exception
+     */
     @FXML
     public void precinctSelected() throws Exception{
         setPrecinctID(precinct.getValue());
     }
 
+    /**
+     * Generates full id code for precinct and change the scene to the
+     * appropriate interface.
+     *
+     * Pressing the continue button will change the current scene depending
+     * on the previous selection in the Main Menu. If the user has selected
+     * the "Auditor" button in the main menu, this method will change the
+     * scene to the Add Candidate interface (Auditor.fxml) after the user
+     * has selected the state and the precinct. If the "Manage Precinct"
+     * button was pressed, the interface will proceed to the Manage Precinct
+     * Interface (ManagePrecinct.fxml). If the "Vote" button was selected,
+     * pressing the continue button will generate a ballot for the voter
+     * (VoteController.java). If the user pressed "Results" button, the method
+     * will change the scene to show the results of the election (ResultsGraph.java)
+     *
+     * @throws Exception
+     */
     @FXML
-    public void buttonPressed() throws Exception { //Generates full id code for precinct
+    public void buttonPressed() throws Exception {
         setIdCode(getStateID() + getPrecinctID());
         if (getIdCode().length() == 3) {
             setIdCode("0" + getIdCode());
@@ -103,7 +138,7 @@ public class AuditorController extends StateControl implements Initializable{
                 myStage.show();
             }
         } catch (NullPointerException npe) {
-            System.out.print("The " + getButtonPressed() + ".fxml file does not exist");
+            System.out.print("The " + getButtonPressed() + ".fxml file does not exist");        //Throws NullPointerException if unable to find file
             generateButton.getScene().getWindow().hide();
         }
     }
