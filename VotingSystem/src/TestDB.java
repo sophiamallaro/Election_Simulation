@@ -1,15 +1,14 @@
 /**
  * Created by Sophia on 12/2/2016.
  */
+import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class TestDB {
     private static final String URL = "jdbc:postgresql://s-l112.engr.uiowa.edu:5432/postgres";
@@ -245,16 +244,12 @@ public class TestDB {
         }
     }
 
-    public BarChart<String, ? extends Number> loadChart(int positionToLoad) {
+    public BarChart<String, Number> loadChart(int positionToLoad) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        ResultSet resultSet = null;
         List<Candidate> candidates = new ArrayList<>();
-        //try {
             List<Position> offices = getPositionsWithCandidates(StateControl.getIdCode());
             for(Position position : offices) {
-                System.out.println("Position ID is " + position.getPositionid());
                 if(position.getPositionid() == positionToLoad) {
-                    System.out.println("Found matching position!");
                     candidates = position.getCandidates();
                     for(Candidate candidate : candidates) {
                         String name = candidate.getFirstName() + " " + candidate.getLastName();
@@ -263,26 +258,37 @@ public class TestDB {
                         series.getData().add(new XYChart.Data<>(name, votes));
                     }
                 }
-
             }
-            //preparedStatement = connection.prepareStatement("SELECT firstname, lastname, votecount FROM candidates");
-            //resultSet = preparedStatement.executeQuery();
             CategoryAxis xAxis = new CategoryAxis();
             NumberAxis yAxis = new NumberAxis();
             xAxis.setLabel("Candidates");
             yAxis.setLabel("Votes");
-            //while(resultSet.next()) {
-            //    String name = resultSet.getString("firstname") + " " +resultSet.getString("lastname");
-            //    Integer votes = resultSet.getInt("votecount");
-            //    series.getData().add(new XYChart.Data<>(name, votes));
-            //}
             BarChart<String,Number> bc = new BarChart<>(xAxis,yAxis);
             bc.setTitle("Election Results");
             bc.getData().add(series);
             return bc;
-        //} catch (SQLException sql) {
-        //    System.out.println("Bad move dude");
-        //}
-        //return null;
     }
+
+
+    public void updateChart(BarChart<String, Number> chartToUpdate, int positionToLoad) {
+        XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
+        List<Candidate> candidates = new ArrayList<>();
+        List<Position> offices = getPositionsWithCandidates(StateControl.getIdCode());
+        for(Position position : offices) {
+            System.out.println("Position ID is " + position.getPositionid());
+            if(position.getPositionid() == positionToLoad) {
+                System.out.println("Found matching position!");
+                candidates = position.getCandidates();
+                for(Candidate candidate : candidates) {
+                    String name = candidate.getFirstName() + " " + candidate.getLastName();
+                    Integer votes = candidate.getVoteCount();
+                    System.out.println("Name: " + name + ", Votes:  " + votes);
+                    newSeries.getData().add(new XYChart.Data<>(name, votes));
+                }
+            }
+        }
+        chartToUpdate.getData().add(newSeries);
+    }
+
+
 }
