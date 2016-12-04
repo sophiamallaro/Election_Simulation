@@ -96,7 +96,8 @@ public class StateAndPrecinctController extends StateControl implements Initiali
     }
 
     /**
-     * Store the precinctID of the precinct selected
+     * Store the precinctID of the precinct selected by the
+     * user from the combo box
      * @throws Exception
      */
     @FXML
