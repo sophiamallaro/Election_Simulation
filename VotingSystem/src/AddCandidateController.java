@@ -128,6 +128,8 @@ public class AddCandidateController implements Initializable {
         catch (NullPointerException ex)  {
             candidateFirstName.setText("Enter First Name");
             candidateFirstName.selectAll();
+            candidateLastName.setText("Enter Last Name");
+            candidateFirstName.selectAll();
         }
     }
 }
