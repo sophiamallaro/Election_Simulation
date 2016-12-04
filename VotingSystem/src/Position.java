@@ -1,17 +1,21 @@
 import java.util.List;
 
 /**
+ * This class is a class to store all details
+ * regarding a position. This class contains four
+ * member variables.
  *
  * @author Sophia Mallaro
  */
 public class Position {
-    //
+    //Instantiation of the member variables
     private int positionid;
     private String positiontitle;
     private String availableprecincts;
     private List<Candidate> candidates;
 
     /**
+     * Constructor with a parameter of
      *
      * @param positionid
      * @param positiontitle
