@@ -95,6 +95,7 @@ public class VoteController extends Application {
                         data.voteFor(group.getSelectedToggle().toString().split("'")[1]);
                     }
                 }
+                //Sounds source: http://soundbible.com/tags-crickets.html
                 Media applause = new Media(new File("VotingSystem/src/applause.mp3").toURI().toString());
                 Media crickets = new Media(new File("VotingSystem/src/crickets.mp3").toURI().toString());
                 MediaPlayer badVote = new MediaPlayer(crickets);
