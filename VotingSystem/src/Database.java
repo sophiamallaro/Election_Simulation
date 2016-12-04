@@ -296,6 +296,7 @@ public class Database {
     }
 
     /**
+     * This method returns a list of positions
      *
      * @param idCode
      * @return
@@ -324,7 +325,14 @@ public class Database {
         return positions;
     }
 
-    public void voteFor(String identifier) { //vote for a candidate
+    /**
+     * This method register a vote to a candidate. The method
+     * looks up the candidate in the database and increment the
+     * vote count by one.
+     *
+     * @param identifier
+     */
+    public void voteFor(String identifier) {
         String[] identities = identifier.replace(',', ' ').split("\\s+");
         try {
             preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = voteCount+1 where firstname = ? and lastname = ?");
@@ -337,6 +345,14 @@ public class Database {
         }
     }
 
+    /**
+     * This method creates a bar chart of the election results
+     * for a specific position. The method takes in the position
+     * to display in the bar chart.
+     *
+     * @param positionToLoad the position to display in the bar chart
+     * @return bar chart of the election result
+     */
     public BarChart<String, Number> loadChart(int positionToLoad) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         List<Candidate> candidates = new ArrayList<>();
@@ -362,7 +378,14 @@ public class Database {
             return bc;
     }
 
-
+    /**
+     * This method updates the chart of the election result with
+     * new data. The method takes in a new position to display on
+     * the chart.
+     *
+     * @param chartToUpdate the chart to update
+     * @param positionToLoad the new position to display to the chart
+     */
     public void updateChart(BarChart<String, Number> chartToUpdate, int positionToLoad) {
         XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
         List<Candidate> candidates = new ArrayList<>();
@@ -383,6 +406,14 @@ public class Database {
         chartToUpdate.getData().add(newSeries);
     }
 
+    /**
+     * This method returns an array list containing
+     * of all the candidate's ID in the database. The
+     * method simply inserts all the data from the candidateid
+     * column in the candidates table
+     *
+     * @return A list of all the candidate's ID
+     */
     public ArrayList<Integer> getCandidateIDList() {
         ResultSet resultSet = null;
         ArrayList<Integer> candidateids = new ArrayList<Integer>();
@@ -399,6 +430,14 @@ public class Database {
         return candidateids;
     }
 
+    /**
+     * This method increments the vote count on the database
+     * based on the candidate ID passed in the argument. The method
+     * takes in the candidate ID and search for the candidate in the
+     * database
+     *
+     * @param ids an array of candidate ID
+     */
     public void voteID(int[] ids) { //vote for a candidate
         try {
             preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = voteCount+1 where candidateid = ?");
@@ -412,6 +451,11 @@ public class Database {
         }
     }
 
+    /**
+     * This method creates a CSV file of t
+     *
+     * @param id the position ID
+     */
     public void makeCSV(int id) {
         ResultSet resultSet = null;
         try {
@@ -449,6 +493,9 @@ public class Database {
         }
     }
 
+    /**
+     *
+     */
     public void closeConnection() {
         try {
             connection.close();

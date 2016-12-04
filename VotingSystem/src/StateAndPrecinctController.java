@@ -143,8 +143,8 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                 } else if (getButtonPressed().equals("Vote")) {
                     VoteController ballot = new VoteController();
                     ballot.start(myStage);
-                    VoteController ballet = new VoteController();
-                    ballet.start(myStage);
+                    VoteController ballot = new VoteController();
+                    ballot.start(myStage);
                 } else if (getButtonPressed().equals("Simulate")) {
                     myStage.setScene(ElectionDriver.getStartScene());
                 } else {
