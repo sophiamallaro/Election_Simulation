@@ -14,6 +14,19 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
+ * This class is the controller for the Precincts.fxml GUI.
+ * This class manages the precincts by adding offices to the
+ * precinct.
+ *
+ * After clicking the "Precincts" button from the Main Menu
+ * and selecting the state and the precinct that the user wishes
+ * to manage, the Add Office interface (Precincts.fxml) will
+ * appear. There will be a text field to insert the Officer Title
+ * and a drop down menu to select the domain. Clicking the "Add"
+ * button will
+ *
+ *
+ * @author Sophia Mallaro
  * Created by smallaro on 12/3/16.
  */
 public class ManagePrecinctsController implements Initializable {
