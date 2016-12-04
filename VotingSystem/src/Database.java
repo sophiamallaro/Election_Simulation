@@ -211,10 +211,12 @@ public class Database {
     }
 
     /**
-     * Return list of positions available to a precinct.
+     * This method returns list of positions available to a precinct.
+     * This method takes in the precinct ID in the argument and use it
+     * to compare to the availableprecincts column in the position table.
      *
      * @param idCode the precinct ID
-     * @return
+     * @return a list of positions available in the precinct
      */
     public List<Position> getPositions(String idCode) {
         List<Position> positions = new ArrayList<>();
@@ -240,6 +242,14 @@ public class Database {
         return positions;
     }
 
+    /**
+     * This method returns a list containing all the precincts
+     * in the state. The method takes in the state ID from the argument
+     * and compares it to the stateid column in the precincts table.
+     *
+     * @param stateid
+     * @return A list of all precincts in the state
+     */
     public List<Precinct> getPrecincts(int stateid) {
         List<Precinct> precincts = new ArrayList<>();
         ResultSet resultSet = null;
@@ -258,7 +268,16 @@ public class Database {
         return precincts;
     }
 
-    public List<Candidate> getCandidates(int findpositionID) { //Return list of positions available to a precinct
+    /**
+     * This method returns a list of all the candidates running
+     * for a certain position. The position ID is passed in the
+     * argument and the method compares it to the positionid column
+     * in the candidates table
+     *
+     * @param findpositionID the position ID
+     * @return A list of candidates running for the position
+     */
+    public List<Candidate> getCandidates(int findpositionID) {
         ResultSet resultSet = null;
         List<Candidate> candidates = new ArrayList<Candidate>();
         try {
@@ -276,6 +295,11 @@ public class Database {
         return candidates;
     }
 
+    /**
+     *
+     * @param idCode
+     * @return
+     */
     public List<Position> getPositionsWithCandidates(String idCode) {
         List<Position> positions = new ArrayList<>();
         ResultSet resultSet = null;
