@@ -105,7 +105,7 @@ public class AuditorController extends StateControl implements Initializable{
      * scene to the Add Candidate interface (Auditor.fxml) after the user
      * has selected the state and the precinct. If the "Manage Precinct"
      * button was pressed, the interface will proceed to the Manage Precinct
-     * Interface (ManagePrecinct.fxml). If the "Vote" button was selected,
+     * Interface (Precincts.fxml). If the "Vote" button was selected,
      * pressing the continue button will generate a ballot for the voter
      * (VoteController.java). If the user pressed "Results" button, the method
      * will change the scene to show the results of the election (ResultsGraph.java)
