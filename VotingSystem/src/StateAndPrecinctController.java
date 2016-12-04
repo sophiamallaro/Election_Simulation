@@ -142,7 +142,7 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                 }
             } catch (NullPointerException npe) {//Throws NullPointerException if unable to find file
                 generateButton.getScene().getWindow().hide();
-            }
+            }//hi
         }
     }
 
