@@ -40,6 +40,7 @@ import java.util.ResourceBundle;
  */
 
 public class VoteController extends Application {
+
     @FXML
     private static final TestDB data = new TestDB();
     private List<ToggleGroup> buttonGroups;
@@ -48,7 +49,7 @@ public class VoteController extends Application {
     VoteController() {
     }
 
-    //set up the stage
+
     public void start(Stage stage) {
         //Set up GUI
         VBox box = new VBox();

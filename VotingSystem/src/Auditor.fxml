@@ -9,22 +9,22 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="736.0" style="-fx-background-image: url('American-Flag-4.jpg');" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddCandidateController">
    <children>
-      <Label fx:id="firstName" layoutX="140.0" layoutY="99.0" text="First Name" textFill="WHITE">
+      <Label fx:id="firstName" layoutX="140.0" layoutY="99.0" text="First Name" textFill="RED">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
       <TextField fx:id="candidateFirstName" layoutX="333.0" layoutY="99.0" prefHeight="40.0" prefWidth="300.0" />
-      <Label fx:id="lastName" layoutX="143.0" layoutY="197.0" prefHeight="27.0" prefWidth="92.0" text="Last Name" textFill="WHITE">
+      <Label fx:id="lastName" layoutX="143.0" layoutY="197.0" prefHeight="27.0" prefWidth="92.0" text="Last Name" textFill="RED">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
       <TextField fx:id="candidateLastName" layoutX="333.0" layoutY="197.0" prefHeight="40.0" prefWidth="300.0" />
-      <Label fx:id="party" layoutX="194.0" layoutY="284.0" text="Party" textFill="WHITE">
+      <Label fx:id="party" layoutX="194.0" layoutY="284.0" text="Party" textFill="RED">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
       <ComboBox fx:id="partySelect" layoutX="333.0" layoutY="284.0" onAction="#partySelected" prefHeight="40.0" prefWidth="300.0" />
-      <Label layoutX="171.0" layoutY="372.0" text="Position" textFill="WHITE">
+      <Label layoutX="171.0" layoutY="372.0" text="Position" textFill="RED">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Label>
