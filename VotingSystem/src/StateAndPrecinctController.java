@@ -135,6 +135,8 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                 } else if (getButtonPressed().equals("Vote")) {
                     VoteController ballet = new VoteController();
                     ballet.start(myStage);
+                } else if (getButtonPressed().equals("Simulate")) {
+                    myStage.setScene(ElectionDriver.getStartScene());
                 } else {
                     String fxmlToLoad = getButtonPressed() + ".fxml";
                     Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(fxmlToLoad));
