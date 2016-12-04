@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
+ *
+ * @author Kyle Anderson
  * Created by kanderson8 on 12/2/16.
  */
 

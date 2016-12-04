@@ -1,6 +1,9 @@
 import javafx.stage.Stage;
 
 /**
+ *
+ *
+ * @author Kyle Anderson
  * Created by kanderson8 on 12/3/16.
  */
 public class StateControl {
@@ -9,6 +12,7 @@ public class StateControl {
     private static String buttonPressed;
     private static String stateID;
     private static String precinctID;
+
 
     public static Stage getMyStage() {
         return myStage;
