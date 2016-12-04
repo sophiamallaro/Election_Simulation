@@ -50,6 +50,7 @@ public class ResultsGraph extends Application {
         homeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
+                data.closeConnection();
                 stage.setScene(ElectionDriver.getStartScene());
             }
         });
@@ -59,7 +60,6 @@ public class ResultsGraph extends Application {
             public void handle(ActionEvent event) {
                 String selection = positionSelect.getSelectionModel().getSelectedItem();
                 data.updateChart(chart,data.getPositionID(selection, StateControl.getIdCode()));
-
             }
         });
     }

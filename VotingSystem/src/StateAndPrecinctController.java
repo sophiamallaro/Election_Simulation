@@ -126,6 +126,7 @@ public class StateAndPrecinctController extends StateControl implements Initiali
             try {
                 Node node = (Node) generateButton;
                 Stage myStage = (Stage) node.getScene().getWindow();
+                data.closeConnection();
                 //Requires that button names DO NOT CHANGE
                 if (getButtonPressed().equals("Results")) {
                     //myStage.setScene(new Scene(data.loadChart()));
@@ -142,7 +143,7 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                 }
             } catch (NullPointerException npe) {//Throws NullPointerException if unable to find file
                 generateButton.getScene().getWindow().hide();
-            }//hi
+            }
         }
     }
 

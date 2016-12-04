@@ -114,6 +114,7 @@ public class AuditorController implements Initializable {
                 Node node = (Node) submitButton;
                 Stage myStage = (Stage) node.getScene().getWindow();
                 myStage.setScene(ElectionDriver.getStartScene());
+                data.closeConnection();
                 myStage.show();
             }
         }

@@ -94,6 +94,7 @@ public class VoteController extends Application {
                         goodVote.play();
                 } catch(MediaException ex) {
                 } finally {
+                    data.closeConnection();
                     stage.setScene(ElectionDriver.getStartScene());
                 }
             }

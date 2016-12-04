@@ -6,8 +6,11 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+import java.awt.*;
+import java.io.*;
 import java.sql.*;
 import java.util.*;
+import java.util.List;
 
 public class Database {
     private static final String URL = "jdbc:postgresql://s-l112.engr.uiowa.edu:5432/postgres";
@@ -19,8 +22,8 @@ public class Database {
     private PreparedStatement preparedStatement2;
 
     public static void main(String[] args) {
-        Database tdb = new Database();
-        tdb.addPrecinct("12", "01");
+        Database base = new Database();
+        base.makeCSV(1);
     }
 
     Database() {
@@ -253,7 +256,7 @@ public class Database {
                     for(Candidate candidate : candidates) {
                         String name = candidate.getFirstName() + " " + candidate.getLastName();
                         Integer votes = candidate.getVoteCount();
-                        System.out.println("Name: " + name + ", Votes:  " + votes);
+                        //System.out.println("Name: " + name + ", Votes:  " + votes);
                         series.getData().add(new XYChart.Data<>(name, votes));
                     }
                 }
@@ -274,20 +277,95 @@ public class Database {
         List<Candidate> candidates = new ArrayList<>();
         List<Position> offices = getPositionsWithCandidates(StateControl.getIdCode());
         for(Position position : offices) {
-            System.out.println("Position ID is " + position.getPositionid());
+            //System.out.println("Position ID is " + position.getPositionid());
             if(position.getPositionid() == positionToLoad) {
-                System.out.println("Found matching position!");
+                //System.out.println("Found matching position!");
                 candidates = position.getCandidates();
                 for(Candidate candidate : candidates) {
                     String name = candidate.getFirstName() + " " + candidate.getLastName();
                     Integer votes = candidate.getVoteCount();
-                    System.out.println("Name: " + name + ", Votes:  " + votes);
+                    //System.out.println("Name: " + name + ", Votes:  " + votes);
                     newSeries.getData().add(new XYChart.Data<>(name, votes));
                 }
             }
         }
         chartToUpdate.getData().add(newSeries);
     }
+
+    public ArrayList<Integer> getCandidateIDList() {
+        ResultSet resultSet = null;
+        ArrayList<Integer> candidateids = new ArrayList<Integer>();
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM candidates");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                candidateids.add(resultSet.getInt("candidateid"));
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        return candidateids;
+    }
+
+    public void voteID(int[] ids) { //vote for a candidate
+        try {
+            preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = voteCount+1 where candidateid = ?");
+            for(int i=0; i<ids.length; i++) {
+                preparedStatement.setInt(1, ids[i]);
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+    }
+
+    public void makeCSV(int id) {
+        ResultSet resultSet = null;
+        try {
+            File file = new File(System.getProperty("user.dir") + "/VotingSystem/src/results.html");
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+            try {
+                preparedStatement = connection.prepareStatement("SELECT * FROM candidates");
+                resultSet = preparedStatement.executeQuery();
+                writer.write("<html>\n<head>\n\t<title>\"Election\"</title>\n\t" +
+                        "<h1>\"Election!!!!\"</h1>\n</head>\n" +
+                        "<body>\n<table border = \"1\" style = \"...\">\n\t");
+                writer.flush();
+                writer.write("<tr>\n\t\t<th>FirstName</th><th>LastName</th>" +
+                        "<th>Party</th><th>Votes</th></tr>\n");
+                writer.flush();
+                while(resultSet.next()) {
+                    if(resultSet.getInt("positionid")==id) {
+                        writer.write("<tr>\n<td>" + resultSet.getString("firstName") + "</td>\n<td>" + resultSet.getString("lastName") + "</td>\n<td>" + resultSet.getString("party") +
+                                "</td>\n<td>" + resultSet.getInt("voteCount") + "</td>\n");
+                        writer.flush();
+                    }
+                }
+                writer.write("\t\t</table>\n\t</body>\n</html>");
+                writer.flush();
+                fileWriter.close();
+                writer.close();
+                Desktop.getDesktop().browse(file.toURI());
+            } catch(SQLException ex) {
+                ex.printStackTrace();
+                System.exit(-1);
+            }
+        } catch(IOException ex) {
+
+        }
+    }
+
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
 
 }

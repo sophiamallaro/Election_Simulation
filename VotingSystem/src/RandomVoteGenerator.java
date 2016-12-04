@@ -1,3 +1,4 @@
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -5,21 +6,19 @@ import java.util.Random;
  * Created by smallaro on 12/3/16.
  */
 public class RandomVoteGenerator {
-   /* private static final Database test = new Database();
-
-    public static void generateOneMillionRandomVotes() {
-        Random rand = new Random();
+    public static void generateOneHundredThousandRandomVotes() {
+        Database test = new Database();
+        Random rand = new SecureRandom();
         ArrayList<Integer> idList = test.getCandidateIDList();
 
-        int[] ids = new int[1000000];
+        int[] ids = new int[100000];
         for(int i=0; i< ids.length; i++) {
             ids[i] = (idList.get(rand.nextInt(idList.size())));
         }
-        System.out.println("out");
         test.voteID(ids);
+        test.closeConnection();
     }
-
-   * public static void main(String[] args) {
-        generateOneMillionRandomVotes();
-    }*/
+   public static void main(String[] args) {
+        generateOneHundredThousandRandomVotes();
+    }
 }
