@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * This is the database class for the application. This class
  * creates a connection to the database and provides methods
- * for other classes to
- *
+ * for other classes to access the database.
  *
  * @author Sophia Mallaro
  * Created by Sophia on 12/2/2016.
@@ -165,8 +164,9 @@ public class Database {
 
     /**
      * This method returns a list of all the states stored in the
-     * database
-     * @return
+     * database.
+     *
+     * @return A list of all the states
      */
     public List<State> getStates() {
         List<State> states = new ArrayList<>();
@@ -184,6 +184,14 @@ public class Database {
         return states;
     }
 
+    /**
+     * This accessor method retrives the state ID in the database.
+     * The method takes in an argument of the state's name to look up
+     * and compares it to statename column in the states table
+     *
+     * @param name the state's name
+     * @return the state ID
+     */
     public Integer getStateID(String name) {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
@@ -202,7 +210,13 @@ public class Database {
         return null;
     }
 
-    public List<Position> getPositions(String idCode) { //Return list of positions available to a precinct
+    /**
+     * Return list of positions available to a precinct.
+     *
+     * @param idCode the precinct ID
+     * @return
+     */
+    public List<Position> getPositions(String idCode) {
         List<Position> positions = new ArrayList<>();
         ResultSet resultSet = null;
         char[] idCodeArray = idCode.toCharArray();
