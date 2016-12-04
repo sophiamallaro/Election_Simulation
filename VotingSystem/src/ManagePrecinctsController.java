@@ -2,10 +2,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 //import java.awt.event.ActionEvent;
 import java.net.URL;
@@ -75,6 +77,10 @@ public class ManagePrecinctsController implements Initializable {
             }
             stateid +=precinctid;
             data.addPosition(name.getText(), stateid);
+            Node node = (Node) add;
+            Stage myStage = (Stage) node.getScene().getWindow();
+            myStage.setScene(ElectionDriver.getStartScene());
+            myStage.show();
         }
     }
 }

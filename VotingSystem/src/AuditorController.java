@@ -118,28 +118,30 @@ public class AuditorController extends StateControl implements Initializable{
         if (getIdCode().length() == 3) {
             setIdCode("0" + getIdCode());
         }
-        try {
-            Node node = (Node) generateButton;
-            Stage myStage = (Stage) node.getScene().getWindow();
-            //Requires that button names DO NOT CHANGE
-            System.out.println("Try to open " + getButtonPressed());
-            if(getButtonPressed().equals("Results")) {
-                //myStage.setScene(new Scene(data.loadChart()));
-                ResultsGraph graph = new ResultsGraph();
-                graph.start(myStage);
-            } else if (getButtonPressed().equals("Vote")) {
-                VoteController ballet = new VoteController();
-                ballet.start(myStage);
-            } else {
-                //System.out.println("The file being opened will be " + getButtonPressed());
-                String fxmlToLoad = getButtonPressed() + ".fxml";
-                Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(fxmlToLoad));
-                myStage.setScene(new Scene(stateAndPrecinct));
-                myStage.show();
+        if(!stateSelect.getSelectionModel().isEmpty() && !precinct.getSelectionModel().isEmpty()) {
+            try {
+                Node node = (Node) generateButton;
+                Stage myStage = (Stage) node.getScene().getWindow();
+                //Requires that button names DO NOT CHANGE
+                //System.out.println("Try to open " + getButtonPressed());
+                if (getButtonPressed().equals("Results")) {
+                    //myStage.setScene(new Scene(data.loadChart()));
+                    ResultsGraph graph = new ResultsGraph();
+                    graph.start(myStage);
+                } else if (getButtonPressed().equals("Vote")) {
+                    VoteController ballet = new VoteController();
+                    ballet.start(myStage);
+                } else {
+                    //System.out.println("The file being opened will be " + getButtonPressed());
+                    String fxmlToLoad = getButtonPressed() + ".fxml";
+                    Parent stateAndPrecinct = FXMLLoader.load(getClass().getResource(fxmlToLoad));
+                    myStage.setScene(new Scene(stateAndPrecinct));
+                    myStage.show();
+                }
+            } catch (NullPointerException npe) {
+                //System.out.print("The " + getButtonPressed() + ".fxml file does not exist");        //Throws NullPointerException if unable to find file
+                generateButton.getScene().getWindow().hide();
             }
-        } catch (NullPointerException npe) {
-            System.out.print("The " + getButtonPressed() + ".fxml file does not exist");        //Throws NullPointerException if unable to find file
-            generateButton.getScene().getWindow().hide();
         }
     }
 

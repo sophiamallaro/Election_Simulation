@@ -22,7 +22,7 @@ public class StateAndPrecinctController extends StateControl {
     private void displayStateAndPrecinct(ActionEvent event) throws Exception{
         //passes information about the button pressed to the next controller
         String myString = ((Button)event.getSource()).getText();
-        System.out.print("My string is " + myString);
+        //System.out.print("My string is " + myString);
         setButtonPressed(myString);
         Node node = (Node) event.getSource();
         setMyStage((Stage) node.getScene().getWindow());

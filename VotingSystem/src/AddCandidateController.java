@@ -61,7 +61,7 @@ public class AddCandidateController implements Initializable {
         partySelect.getItems().clear();
         partySelect.getItems().addAll("Democrat", "Republican", "Green Party", "Independent", "Libertarian");   //provide the options for the party combo box
 
-        List<Position>  offices = data.getPositions("1502"); //<--------check the idCode to get from the AuditorController
+        List<Position>  offices = data.getPositions(StateAndPrecinctController.getIdCode()); //<--------check the idCode to get from the AuditorController
 
         List<String> titleNames = new ArrayList<>();
         for(Position position : offices) {
