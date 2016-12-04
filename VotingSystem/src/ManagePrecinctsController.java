@@ -83,7 +83,6 @@ public class ManagePrecinctsController implements Initializable {
             Node node = (Node) add;
             Stage myStage = (Stage) node.getScene().getWindow();
             myStage.setScene(ElectionDriver.getStartScene());
-            data.closeConnection();
             myStage.show();
         }
     }

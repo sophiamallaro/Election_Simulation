@@ -52,7 +52,7 @@ public class ResultsGraph extends Application {
         homeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
-                data.closeConnection();
+                //data.closeConnection();
                 stage.setScene(ElectionDriver.getStartScene());
             }
         });

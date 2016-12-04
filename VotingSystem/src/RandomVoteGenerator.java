@@ -10,15 +10,11 @@ public class RandomVoteGenerator {
         Database test = new Database();
         Random rand = new SecureRandom();
         ArrayList<Integer> idList = test.getCandidateIDList();
-
         int[] ids = new int[100000];
         for(int i=0; i< ids.length; i++) {
             ids[i] = (idList.get(rand.nextInt(idList.size())));
         }
         test.voteID(ids);
         test.closeConnection();
-    }
-   public static void main(String[] args) {
-        generateOneHundredThousandRandomVotes();
     }
 }

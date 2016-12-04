@@ -1,4 +1,6 @@
-
+/**
+ * Created by Sophia on 12/2/2016.
+ */
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -10,15 +12,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.List;
 
-/**
- * This is the database class for the application. This class
- * creates a connection to the database and provides methods
- * for other classes to access the database.
- *
- * @author Sophia Mallaro
- * Created by Sophia on 12/2/2016.
- */
-
 public class Database {
     private static final String URL = "jdbc:postgresql://s-l112.engr.uiowa.edu:5432/postgres";
     private static final String USERNAME = "student5";
@@ -27,11 +20,6 @@ public class Database {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private PreparedStatement preparedStatement2;
-
-    public static void main(String[] args) {
-        Database base = new Database();
-        base.makeCSV(1);
-    }
 
     Database() {
         try {
@@ -42,14 +30,6 @@ public class Database {
         }
     }
 
-    /**
-     * This method is used to register a new candidate to the
-     * database. When the new candidate is passed in the argument,
-     * the method inserts the new candidate's details to the table
-     * and updates the database.
-     *
-     * @param candidate the new candidate
-     */
     public void addCandidate(Candidate candidate) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO candidates" + "(firstname, lastname, party, voteCount, positionid) VALUES" + "(?,?,?,?,?)" );
@@ -61,19 +41,10 @@ public class Database {
             preparedStatement.executeUpdate();
         } catch(SQLException ex) {
             ex.printStackTrace();
-            System.exit(-1);
+            System.exit(-1); //hello
         }
     }
 
-    /**
-     * This method is to register the new precinct into the database.
-     * When the state ID and the precinct ID is passed into the method,
-     * the method inserts the new precinct to the precinct table with it's ID
-     * and it's state ID.
-     *
-     * @param stateid the state of the precinct
-     * @param precinctid the new precinct ID
-     */
     public void addPrecinct(String stateid, String precinctid) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO precincts" + "(stateid, precinctid) VALUES" + "(?,?)" );
@@ -86,14 +57,6 @@ public class Database {
         }
     }
 
-    /**
-     * This method registers a new position to the position table in
-     * the database. The method will take in the arguments passed
-     * and insert them into the position table.
-     *
-     * @param positionTitle the position's title
-     * @param availablePrecincts the precincts that the position is available
-     */
     public void addPosition(String positionTitle, String availablePrecincts) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO position" + "(positiontitle, availableprecincts) VALUES" + "(?,?)" );
@@ -107,15 +70,6 @@ public class Database {
     }
 
 
-    /**
-     * An accessor method to retrieve the position ID. The method
-     * takes in the position title and the precincts ID and compares
-     * them to the database.
-     *
-     * @param name The position title
-     * @param id the precincts ID
-     * @return the position ID
-     */
     public Integer getPositionID(String name, String id) {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
@@ -137,13 +91,6 @@ public class Database {
         return null;
     }
 
-    /**
-     * This method stores a list of candidates for a specific position.
-     * The method takes in the position ID of type integer and compares
-     * the position ID to the candidates table in the database.
-     *
-     * @param positionID the position ID
-     */
     public void findCandidates(int positionID) {
         List<Candidate> candidates = new ArrayList<>();
         ResultSet resultSet = null;
@@ -162,12 +109,6 @@ public class Database {
         }
     }
 
-    /**
-     * This method returns a list of all the states stored in the
-     * database.
-     *
-     * @return A list of all the states
-     */
     public List<State> getStates() {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
@@ -184,14 +125,6 @@ public class Database {
         return states;
     }
 
-    /**
-     * This accessor method retrives the state ID in the database.
-     * The method takes in an argument of the state's name to look up
-     * and compares it to statename column in the states table
-     *
-     * @param name the state's name
-     * @return the state ID
-     */
     public Integer getStateID(String name) {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
@@ -210,15 +143,7 @@ public class Database {
         return null;
     }
 
-    /**
-     * This method returns list of positions available to a precinct.
-     * This method takes in the precinct ID in the argument and use it
-     * to compare to the availableprecincts column in the position table.
-     *
-     * @param idCode the precinct ID
-     * @return a list of positions available in the precinct
-     */
-    public List<Position> getPositions(String idCode) {
+    public List<Position> getPositions(String idCode) { //Return list of positions available to a precinct
         List<Position> positions = new ArrayList<>();
         ResultSet resultSet = null;
         char[] idCodeArray = idCode.toCharArray();
@@ -242,14 +167,31 @@ public class Database {
         return positions;
     }
 
-    /**
-     * This method returns a list containing all the precincts
-     * in the state. The method takes in the state ID from the argument
-     * and compares it to the stateid column in the precincts table.
-     *
-     * @param stateid
-     * @return A list of all precincts in the state
-     */
+    public List<Integer> getPositionIDList(String idCode) { //Return list of positions available to a precinct
+        List<Integer> positions = new ArrayList<>();
+        ResultSet resultSet = null;
+        char[] idCodeArray = idCode.toCharArray();
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM position");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                char[] codeArray = resultSet.getString("availableprecincts").toCharArray();
+                if((codeArray[0] == '0') && (codeArray[1] == '0')) {
+                    positions.add(resultSet.getInt("positionid"));
+                } else if((codeArray[0] == idCodeArray[0]) && (codeArray[1] == idCodeArray[1])) {
+                    if(((codeArray[2] == '0') && (codeArray[3] == '0')) ||  ((idCodeArray[2] == codeArray[2]) && (idCodeArray[3] == codeArray[3]))){
+                        positions.add(resultSet.getInt("positionid"));
+                    }
+                }
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+        return positions;
+    }
+
+
     public List<Precinct> getPrecincts(int stateid) {
         List<Precinct> precincts = new ArrayList<>();
         ResultSet resultSet = null;
@@ -268,16 +210,7 @@ public class Database {
         return precincts;
     }
 
-    /**
-     * This method returns a list of all the candidates running
-     * for a certain position. The position ID is passed in the
-     * argument and the method compares it to the positionid column
-     * in the candidates table
-     *
-     * @param findpositionID the position ID
-     * @return A list of candidates running for the position
-     */
-    public List<Candidate> getCandidates(int findpositionID) {
+    public List<Candidate> getCandidates(int findpositionID) { //Return list of positions available to a precinct
         ResultSet resultSet = null;
         List<Candidate> candidates = new ArrayList<Candidate>();
         try {
@@ -295,12 +228,6 @@ public class Database {
         return candidates;
     }
 
-    /**
-     * This method returns a list of positions
-     *
-     * @param idCode
-     * @return
-     */
     public List<Position> getPositionsWithCandidates(String idCode) {
         List<Position> positions = new ArrayList<>();
         ResultSet resultSet = null;
@@ -325,14 +252,7 @@ public class Database {
         return positions;
     }
 
-    /**
-     * This method register a vote to a candidate. The method
-     * looks up the candidate in the database and increment the
-     * vote count by one.
-     *
-     * @param identifier
-     */
-    public void voteFor(String identifier) {
+    public void voteFor(String identifier) { //vote for a candidate
         String[] identities = identifier.replace(',', ' ').split("\\s+");
         try {
             preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = voteCount+1 where firstname = ? and lastname = ?");
@@ -345,14 +265,6 @@ public class Database {
         }
     }
 
-    /**
-     * This method creates a bar chart of the election results
-     * for a specific position. The method takes in the position
-     * to display in the bar chart.
-     *
-     * @param positionToLoad the position to display in the bar chart
-     * @return bar chart of the election result
-     */
     public BarChart<String, Number> loadChart(int positionToLoad) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         List<Candidate> candidates = new ArrayList<>();
@@ -378,14 +290,7 @@ public class Database {
             return bc;
     }
 
-    /**
-     * This method updates the chart of the election result with
-     * new data. The method takes in a new position to display on
-     * the chart.
-     *
-     * @param chartToUpdate the chart to update
-     * @param positionToLoad the new position to display to the chart
-     */
+
     public void updateChart(BarChart<String, Number> chartToUpdate, int positionToLoad) {
         XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
         List<Candidate> candidates = new ArrayList<>();
@@ -406,14 +311,6 @@ public class Database {
         chartToUpdate.getData().add(newSeries);
     }
 
-    /**
-     * This method returns an array list containing
-     * of all the candidate's ID in the database. The
-     * method simply inserts all the data from the candidateid
-     * column in the candidates table
-     *
-     * @return A list of all the candidate's ID
-     */
     public ArrayList<Integer> getCandidateIDList() {
         ResultSet resultSet = null;
         ArrayList<Integer> candidateids = new ArrayList<Integer>();
@@ -430,16 +327,10 @@ public class Database {
         return candidateids;
     }
 
-    /**
-     * This method increments the vote count on the database
-     * based on the candidate ID passed in the argument. The method
-     * takes in the candidate ID and search for the candidate in the
-     * database
-     *
-     * @param ids an array of candidate ID
-     */
     public void voteID(int[] ids) { //vote for a candidate
         try {
+            preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = 0");
+            preparedStatement.execute();
             preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = voteCount+1 where candidateid = ?");
             for(int i=0; i<ids.length; i++) {
                 preparedStatement.setInt(1, ids[i]);
@@ -451,44 +342,26 @@ public class Database {
         }
     }
 
-    /**
-     * This method creates a HTML file of the election result
-     * to be uploaded to the web. The method generates a new
-     * file called results.html file containing the html
-     * code for a table of the election results. The result table
-     * is based on the candidates table on the database.
-     *
-     * @param id the position ID
-     */
-    public void makeCSV(int id) {
+    public void makeCSV(List<Integer> ids) {
         ResultSet resultSet = null;
         try {
             File file = new File(System.getProperty("user.dir") + "/VotingSystem/src/results.html");
             FileWriter fileWriter = new FileWriter(file);
             BufferedWriter writer = new BufferedWriter(fileWriter);
             try {
-                preparedStatement = connection.prepareStatement("SELECT * FROM candidates");
-                resultSet = preparedStatement.executeQuery();
                 writer.write("<html>\n<head>\n\t<title>\"Election\"</title>\n\t" +
-                        "<h1>\"Election!!!!\"</h1>\n</head>\n" +
-                        "<body>\n<table border = \"1\" style = \"...\">\n\t");
+                        "<h1>\"Election Results!!!!\"</h1>\n</head>\n");
                 writer.flush();
-                writer.write("<tr>\n\t\t<th>FirstName</th><th>LastName</th>" +
-                        "<th>Party</th><th>Votes</th></tr>\n");
-                writer.flush();
-                while(resultSet.next()) {
-                    if(resultSet.getInt("positionid")==id) {
-                        writer.write("<tr>\n<td>" + resultSet.getString("firstName") + "</td>\n<td>" + resultSet.getString("lastName") + "</td>\n<td>" + resultSet.getString("party") +
-                                "</td>\n<td>" + resultSet.getInt("voteCount") + "</td>\n");
-                        writer.flush();
-                    }
+                for(int id : ids) {
+                    writer.write(writeTable(id));
+                    writer.flush();
                 }
-                writer.write("\t\t</table>\n\t</body>\n</html>");
+                writer.write("\n</body>\n</html>");
                 writer.flush();
                 fileWriter.close();
                 writer.close();
                 Desktop.getDesktop().browse(file.toURI());
-            } catch(SQLException ex) {
+            } catch(IOException ex) {
                 ex.printStackTrace();
                 System.exit(-1);
             }
@@ -497,9 +370,49 @@ public class Database {
         }
     }
 
-    /**
-     * This method closes the connection to the database
-     */
+    public String writeTable(int id) {
+        ResultSet resultSet = null;
+        String toReturn = "";
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM candidates");
+            resultSet = preparedStatement.executeQuery();
+            toReturn = "<h1>" + getNameFromID(id) + "</h1>\n\n<body>\n<table border = \"1\" style = \"...\">\n\t";
+            toReturn += ("<tr>\n\t\t<th>FirstName</th><th>LastName</th>" +
+                    "<th>Party</th><th>Votes</th></tr>\n");
+            //writer.flush();
+            while(resultSet.next()) {
+                if(resultSet.getInt("positionid")==id) {
+                    toReturn += ("<tr>\n<td>" + resultSet.getString("firstName") + "</td>\n<td>" + resultSet.getString("lastName") + "</td>\n<td>" + resultSet.getString("party") +
+                            "</td>\n<td>" + resultSet.getInt("voteCount") + "</td>\n");
+                    //writer.flush();
+                }
+            }
+            //resultSet.first();
+            toReturn += ("\t</table>\n");
+        } catch(SQLException ex) {
+
+        }
+        return toReturn;
+    }
+
+    public String getNameFromID(int id) {
+        String toReturn = "";
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM position");
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                if(resultSet.getInt("positionid")==id) {
+                    toReturn = resultSet.getString("positiontitle");
+                }
+            }
+        } catch(SQLException ex) {
+
+
+        }
+        return toReturn;
+    }
+
     public void closeConnection() {
         try {
             connection.close();
@@ -507,7 +420,4 @@ public class Database {
             ex.printStackTrace();
         }
     }
-
-
-
 }

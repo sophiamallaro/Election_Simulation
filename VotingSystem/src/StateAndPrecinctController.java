@@ -135,7 +135,6 @@ public class StateAndPrecinctController extends StateControl implements Initiali
             try {
                 Node node = (Node) generateButton;
                 Stage myStage = (Stage) node.getScene().getWindow();
-                data.closeConnection();
                 //Requires that button names DO NOT CHANGE
                 if (getButtonPressed().equals("Results")) {
                     //myStage.setScene(new Scene(data.loadChart()));
@@ -146,6 +145,14 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                     VoteController ballot = new VoteController();
                     ballot.start(myStage);
                 } else if (getButtonPressed().equals("Simulate")) {
+                    new Thread() {
+                        public void run() {
+                            Database data2 = new Database();
+                            RandomVoteGenerator.generateOneHundredThousandRandomVotes();
+                            data2.makeCSV(data2.getPositionIDList(StateControl.getIdCode()));
+                            data2.closeConnection();
+                        }
+                    }.start();
                     myStage.setScene(ElectionDriver.getStartScene());
                 } else {
                     String fxmlToLoad = getButtonPressed() + ".fxml";
