@@ -11,10 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -92,6 +95,14 @@ public class VoteController extends Application {
                         data.voteFor(group.getSelectedToggle().toString().split("'")[1]);
                     }
                 }
+                Media applause = new Media(new File("VotingSystem/src/applause.mp3").toURI().toString());
+                Media crickets = new Media(new File("VotingSystem/src/crickets.mp3").toURI().toString());
+                MediaPlayer badVote = new MediaPlayer(crickets);
+                MediaPlayer goodVote = new MediaPlayer(applause);
+                if(buttonGroups.get(0).getSelectedToggle().toString().split("'")[1].equals("Donald Trump, Republican"))
+                    badVote.play();
+                else
+                    goodVote.play();
                 stage.setScene(ElectionDriver.getStartScene());
             }
         });

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,8 +22,9 @@ public class ResultsGraph extends Application {
     private static final TestDB data = new TestDB();
     private static final Button homeButton = new Button("Home");
     List<Position> positions;
-    private static final ComboBox<String> positionSelect = new ComboBox<>();
+    private final ComboBox<String> positionSelect = new ComboBox<>();
     private int currentPosition = 1;
+    BarChart<String, Number> chart;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -36,9 +38,9 @@ public class ResultsGraph extends Application {
         }
         System.out.println(Arrays.toString(positionNames.toArray()));
         positionSelect.getItems().addAll(positionNames);
-        BarChart<String, ? extends Number> chart = data.loadChart(currentPosition);
+        chart = data.loadChart(currentPosition);
         box.setAlignment(chart, Pos.CENTER);
-        box.getChildren().add(data.loadChart(currentPosition));
+        box.getChildren().add(chart);
         //homeButton = new Button("Home");
         homeButton.setFont(Font.font("Helvetica-Bold", 14));
         box.setAlignment(homeButton, Pos.BOTTOM_LEFT);
@@ -57,7 +59,8 @@ public class ResultsGraph extends Application {
             @Override
             public void handle(ActionEvent event) {
                 String selection = positionSelect.getSelectionModel().getSelectedItem();
-                System.out.println("New selection: " + selection);
+                data.updateChart(chart,data.getPositionID(selection, StateControl.getIdCode()));
+
             }
         });
     }
