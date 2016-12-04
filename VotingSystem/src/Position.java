@@ -15,7 +15,8 @@ public class Position {
     private List<Candidate> candidates;
 
     /**
-     * Constructor with a parameter of
+     * Constructor with a parameter of two Strings and one
+     * integer
      *
      * @param positionid
      * @param positiontitle
