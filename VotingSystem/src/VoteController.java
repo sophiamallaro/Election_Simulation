@@ -11,10 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -92,6 +95,9 @@ public class VoteController extends Application {
                         data.voteFor(group.getSelectedToggle().toString().split("'")[1]);
                     }
                 }
+                Media applause = new Media(new File("VotingSystem/src/applause.mp3").toURI().toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(applause);
+                mediaPlayer.play();
                 stage.setScene(ElectionDriver.getStartScene());
             }
         });
