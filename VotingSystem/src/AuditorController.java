@@ -145,8 +145,4 @@ public class AuditorController extends StateControl implements Initializable{
         }
     }
 
-    //public static String getID() { //Returns a static variable representnig the ID Code
-    //    return AuditorController.idCode;
-    //}
-
 }

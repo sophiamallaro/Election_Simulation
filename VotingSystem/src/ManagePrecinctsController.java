@@ -32,6 +32,8 @@ import java.util.ResourceBundle;
  * Created by smallaro on 12/3/16.
  */
 public class ManagePrecinctsController implements Initializable {
+
+    //GUI controls defined in FXML and used by the controller's code
     @FXML
     Button add;
 
@@ -43,6 +45,7 @@ public class ManagePrecinctsController implements Initializable {
 
     private static final TestDB data = new TestDB();
 
+    //called by FXMLLoader to initialize the controller
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         List<String> domains = new ArrayList<String>();
@@ -54,6 +57,10 @@ public class ManagePrecinctsController implements Initializable {
         name.setText("");
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void addPressed(ActionEvent event) {
         if(name.getText().equals("") || name.getText().equals("Enter Officer Title")) {

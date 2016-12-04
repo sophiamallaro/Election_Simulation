@@ -1,14 +1,22 @@
 import java.util.List;
 
 /**
+ *
  * Created by smallaro on 12/2/16.
  */
 public class Position {
+    //
     private int positionid;
     private String positiontitle;
     private String availableprecincts;
     private List<Candidate> candidates;
 
+    /**
+     *
+     * @param positionid
+     * @param positiontitle
+     * @param availableprecincts
+     */
     public Position(int positionid, String positiontitle, String availableprecincts) {
         this.positionid = positionid;
         this.positiontitle = positiontitle;
@@ -16,6 +24,13 @@ public class Position {
         this.candidates = null;
     }
 
+    /**
+     *
+     * @param positionid
+     * @param positiontitle
+     * @param availableprecincts
+     * @param candidates
+     */
     public Position(int positionid, String positiontitle, String availableprecincts, List<Candidate> candidates) {
         this.positionid = positionid;
         this.positiontitle = positiontitle;
@@ -23,6 +38,10 @@ public class Position {
         this.candidates = candidates;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPositionid() {
         return positionid;
     }
