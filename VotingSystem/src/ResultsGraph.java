@@ -12,14 +12,13 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by kanderson8 on 12/3/16.
+ * @author Kyle Anderson
  */
 public class ResultsGraph extends Application {
-    private static final TestDB data = new TestDB();
+    private static final Database data = new Database();
     private static final Button homeButton = new Button("Home");
     List<Position> positions;
     private final ComboBox<String> positionSelect = new ComboBox<>();

@@ -2,7 +2,7 @@ import java.util.List;
 
 /**
  *
- * Created by smallaro on 12/2/16.
+ * @author Sophia Mallaro
  */
 public class Position {
     //

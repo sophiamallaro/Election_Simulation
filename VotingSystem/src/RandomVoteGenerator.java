@@ -5,7 +5,7 @@ import java.util.Random;
  * Created by smallaro on 12/3/16.
  */
 public class RandomVoteGenerator {
-   /* private static final TestDB test = new TestDB();
+   /* private static final Database test = new Database();
 
     public static void generateOneMillionRandomVotes() {
         Random rand = new Random();

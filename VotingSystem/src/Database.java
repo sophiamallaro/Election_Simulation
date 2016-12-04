@@ -1,7 +1,6 @@
 /**
  * Created by Sophia on 12/2/2016.
  */
-import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -10,7 +9,7 @@ import javafx.scene.chart.XYChart;
 import java.sql.*;
 import java.util.*;
 
-public class TestDB {
+public class Database {
     private static final String URL = "jdbc:postgresql://s-l112.engr.uiowa.edu:5432/postgres";
     private static final String USERNAME = "student5";
     private static final String PASSWORD = "team08";
@@ -20,11 +19,11 @@ public class TestDB {
     private PreparedStatement preparedStatement2;
 
     public static void main(String[] args) {
-        TestDB tdb = new TestDB();
+        Database tdb = new Database();
         tdb.addPrecinct("12", "01");
     }
 
-    TestDB() {
+    Database() {
         try {
 
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);

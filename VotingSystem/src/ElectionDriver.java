@@ -1,5 +1,5 @@
 /**
- * Created by kanderson8 on 12/2/16.
+ * @author Kyle Anderson
  */
 
 import javafx.application.Application;

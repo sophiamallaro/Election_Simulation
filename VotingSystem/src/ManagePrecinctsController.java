@@ -43,7 +43,7 @@ public class ManagePrecinctsController implements Initializable {
     @FXML
     ComboBox<String> domain;
 
-    private static final TestDB data = new TestDB();
+    private static final Database data = new Database();
 
     //called by FXMLLoader to initialize the controller
     @Override
@@ -66,7 +66,7 @@ public class ManagePrecinctsController implements Initializable {
         if(name.getText().equals("") || name.getText().equals("Enter Officer Title")) {
             name.setText("Enter Officer Title");
         } else if(!domain.getSelectionModel().isEmpty()) {
-            char[] givenID = AuditorController.getIdCode().toCharArray();
+            char[] givenID = StateAndPrecinctController.getIdCode().toCharArray();
             String stateid = "";
             String precinctid = "";
             if(domain.getSelectionModel().getSelectedIndex()==0){
