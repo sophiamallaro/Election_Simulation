@@ -7,6 +7,8 @@
  * the database.
  *
  * This class implements the Initializable interface.
+ * The background image of the interface is from
+ * http://www.fotolip.com/wp-content/uploads/2016/05/American-Flag-4.jpg
  *
  *@author Alya Mohd
  * Created by Tengku on 12/2/2016.
@@ -27,6 +29,7 @@ import java.util.ResourceBundle;
 
 public class AuditorController implements Initializable {
 
+    //Instantiation of the member variables
     List<Position> positions;                       //Stores a list of Position objects
     private Database data = new Database();             //initializes a Database class
     Candidate newCandidate = new Candidate();       //intializes a Candidate class
@@ -53,7 +56,7 @@ public class AuditorController implements Initializable {
         partySelect.getItems().clear();
         partySelect.getItems().addAll("Democrat", "Republican", "Green Party", "Independent", "Libertarian");   //provide the options for the party combo box
 
-        List<Position>  offices = data.getPositions(VotingSystemMainController.getIdCode()); //<--------check the idCode to get from the StateAndPrecinctController
+        List<Position>  offices = data.getPositions(VotingSystemMainController.getIdCode()); //get ID code from the StateAndPrecinctController
 
         List<String> titleNames = new ArrayList<>();
         for(Position position : offices) {
@@ -119,8 +122,7 @@ public class AuditorController implements Initializable {
             }
         }
         catch (NullPointerException ex)  {
-            candidateFirstName.setText("Enter First Name");
-            candidateFirstName.selectAll();
+            System.out.println("An error occured");
         }
     }
 }

@@ -1,6 +1,4 @@
-/**
- * Created by Sophia on 12/2/2016.
- */
+
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -11,6 +9,16 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 import java.util.List;
+
+/**
+ * This is the database class for the application. This class
+ * creates a connection to the database and provides methods
+ * for other classes to
+ *
+ *
+ * @author Sophia Mallaro
+ * Created by Sophia on 12/2/2016.
+ */
 
 public class Database {
     private static final String URL = "jdbc:postgresql://s-l112.engr.uiowa.edu:5432/postgres";
@@ -35,6 +43,14 @@ public class Database {
         }
     }
 
+    /**
+     * This method is used to register a new candidate to the
+     * database. When the new candidate is passed in the argument,
+     * the method inserts the new candidate's details to the table
+     * and updates the database.
+     *
+     * @param candidate the new candidate
+     */
     public void addCandidate(Candidate candidate) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO candidates" + "(firstname, lastname, party, voteCount, positionid) VALUES" + "(?,?,?,?,?)" );
@@ -46,10 +62,19 @@ public class Database {
             preparedStatement.executeUpdate();
         } catch(SQLException ex) {
             ex.printStackTrace();
-            System.exit(-1); //hello
+            System.exit(-1);
         }
     }
 
+    /**
+     * This method is to register the new precinct into the database.
+     * When the state ID and the precinct ID is passed into the method,
+     * the method inserts the new precinct to the precinct table with it's ID
+     * and it's state ID.
+     *
+     * @param stateid the state of the precinct
+     * @param precinctid the new precinct ID
+     */
     public void addPrecinct(String stateid, String precinctid) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO precincts" + "(stateid, precinctid) VALUES" + "(?,?)" );
@@ -62,6 +87,14 @@ public class Database {
         }
     }
 
+    /**
+     * This method registers a new position to the position table in
+     * the database. The method will take in the arguments passed
+     * and insert them into the position table.
+     *
+     * @param positionTitle the position's title
+     * @param availablePrecincts the precincts that the position is available
+     */
     public void addPosition(String positionTitle, String availablePrecincts) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO position" + "(positiontitle, availableprecincts) VALUES" + "(?,?)" );
@@ -75,6 +108,15 @@ public class Database {
     }
 
 
+    /**
+     * An accessor method to retrieve the position ID. The method
+     * takes in the position title and the precincts ID and compares
+     * them to the database.
+     *
+     * @param name The position title
+     * @param id the precincts ID
+     * @return the position ID
+     */
     public Integer getPositionID(String name, String id) {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
@@ -96,6 +138,13 @@ public class Database {
         return null;
     }
 
+    /**
+     * This method stores a list of candidates for a specific position.
+     * The method takes in the position ID of type integer and compares
+     * the position ID to the candidates table in the database.
+     *
+     * @param positionID the position ID
+     */
     public void findCandidates(int positionID) {
         List<Candidate> candidates = new ArrayList<>();
         ResultSet resultSet = null;
@@ -114,6 +163,11 @@ public class Database {
         }
     }
 
+    /**
+     * This method returns a list of all the states stored in the
+     * database
+     * @return
+     */
     public List<State> getStates() {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;

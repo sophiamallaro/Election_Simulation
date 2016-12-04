@@ -23,12 +23,17 @@ import java.util.ResourceBundle;
  * any of the main menu button is pressed. This class stores the state
  * that the user has selected and shows the precincts of the selected state.
  *
+ * This class implements the Initializable interface
+ * http://media.gettyimages.com/videos/circles-of-red-white-and-blue-stars-spinning-video-id508203554?s=640x640
+ *
  * @author Sophia Mallaro
  * @see Database
  *
  * Created by smallaro on 12/2/16.
  */
 public class StateAndPrecinctController extends StateControl implements Initializable{
+
+    //Instantiation of the class's member variables
     private Database data = new Database();
     private ObservableList<String> list;
     List<State> states;
@@ -65,7 +70,7 @@ public class StateAndPrecinctController extends StateControl implements Initiali
 
     /**
      * Store the stateID and generates a list of precincts to be displayed at
-     * the combobox based on the state selected.
+     * the combo box based on the state selected.
      *
      * @throws Exception
      */
@@ -107,12 +112,15 @@ public class StateAndPrecinctController extends StateControl implements Initiali
      * on the previous selection in the Main Menu. If the user has selected
      * the "Auditor" button in the main menu, this method will change the
      * scene to the Add Candidate interface (Auditor.fxml) after the user
-     * has selected the state and the precinct. If the "Manage Precinct"
+     * has selected the state and the precinct. If the "Precinct"
      * button was pressed, the interface will proceed to the Manage Precinct
      * Interface (Precincts.fxml). If the "Vote" button was selected,
      * pressing the continue button will generate a ballot for the voter
      * (VoteController.java). If the user pressed "Results" button, the method
      * will change the scene to show the results of the election (ResultsGraph.java)
+     *
+     * Selection of the state and the precinct must be made in order to proceed
+     * to the next scene.
      *
      * @throws Exception
      */
@@ -133,6 +141,8 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                     ResultsGraph graph = new ResultsGraph();
                     graph.start(myStage);
                 } else if (getButtonPressed().equals("Vote")) {
+                    VoteController ballot = new VoteController();
+                    ballot.start(myStage);
                     VoteController ballet = new VoteController();
                     ballet.start(myStage);
                 } else if (getButtonPressed().equals("Simulate")) {

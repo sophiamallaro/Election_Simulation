@@ -24,6 +24,8 @@ import java.util.List;
  * the program will register the vote to the database and the program will
  * return to the main menu.
  *
+ * This class inherits the Application class.
+ *
  * @author Sophia Mallaro
  * @see Database
  */
@@ -38,9 +40,15 @@ public class VoteController extends Application {
     VoteController() {
     }
 
-
+    /**
+     * This method generates the ballot. The method will first set
+     * up the scene. Then, the method looks up for the candidates list and
+     * their position in the database based on the state and precinct selected.
+     *
+     * @param stage
+     */
     public void start(Stage stage) {
-        //Set up GUI
+        //Set up scene
         VBox box = new VBox();
         Scene scene = new Scene(box,400,500);
         stage.setScene(scene);

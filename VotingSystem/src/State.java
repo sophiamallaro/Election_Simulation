@@ -1,6 +1,8 @@
 /**
- * The State class is a class that stores the details regarding
- * for database use.
+ * The State class is a class that stores the details
+ * of a state. The member variables of this class are
+ * id of type integer which is the state ID in the database
+ * and stateName of type String which is the state's name.
  *
  * @author Sophia Mallaro
  * Created by smallaro on 12/2/16.

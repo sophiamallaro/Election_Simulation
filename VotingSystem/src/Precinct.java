@@ -15,7 +15,10 @@ public class Precinct {
     private String id;
 
     /**
-     * Constructor with two parameters
+     * Constructor with two parameters.
+     * The constructor will assign the stateid and
+     * id member variables to the arguments passed
+     *
      * @param stateid the state ID of the state the precinct is in
      * @param id the precinct ID
      */
@@ -35,17 +38,27 @@ public class Precinct {
     }
 
     /**
-     * Update method of the
+     * Update method modify the state ID to the integer passed in
+     * by the argument
      * @param stateid
      */
     public void setStateid(int stateid) {
         this.stateid = stateid;
     }
 
+    /**
+     * Accessor method to retrieve the precinct ID
+     * @return A String of the precinct ID
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Update method to modify the id member variable to the
+     * String passed in the argument
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }

@@ -1,5 +1,7 @@
 /**
  * A candidate class that stores the details of the candidate
+ * This class fulfills the requirement of keeping track each of the
+ * candidate's information.
  *
  * @author Sophia Mallaro
  * Created by Sophia on 12/2/2016.
