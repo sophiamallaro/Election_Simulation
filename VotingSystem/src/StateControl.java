@@ -1,7 +1,10 @@
 import javafx.stage.Stage;
 
 /**
- * This class is a class
+ * This class controls contains method to assist
+ * the VotingSystemMainController.java class with
+ * handling and controlling the next scene to be
+ * displayed.
  *
  * @author Kyle Anderson
  * Created by kanderson8 on 12/3/16.
