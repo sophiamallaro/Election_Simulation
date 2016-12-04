@@ -96,8 +96,13 @@ public class VoteController extends Application {
                     }
                 }
                 Media applause = new Media(new File("VotingSystem/src/applause.mp3").toURI().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(applause);
-                mediaPlayer.play();
+                Media crickets = new Media(new File("VotingSystem/src/crickets.mp3").toURI().toString());
+                MediaPlayer badVote = new MediaPlayer(crickets);
+                MediaPlayer goodVote = new MediaPlayer(applause);
+                if(buttonGroups.get(0).getSelectedToggle().toString().split("'")[1].equals("Donald Trump, Republican"))
+                    badVote.play();
+                else
+                    goodVote.play();
                 stage.setScene(ElectionDriver.getStartScene());
             }
         });
