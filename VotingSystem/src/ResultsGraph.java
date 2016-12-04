@@ -10,6 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +22,8 @@ public class ResultsGraph extends Application {
     private static final Database data = new Database();
     private static final Button homeButton = new Button("Home");
     List<Position> positions;
+    private ArrayList<Integer> positionsDisplayed = new ArrayList<>();
     private final ComboBox<String> positionSelect = new ComboBox<>();
-    private int currentPosition = 1;
     BarChart<String, Number> chart;
 
     @Override
@@ -37,7 +38,8 @@ public class ResultsGraph extends Application {
         }
         System.out.println(Arrays.toString(positionNames.toArray()));
         positionSelect.getItems().addAll(positionNames);
-        chart = data.loadChart(currentPosition);
+        chart = data.loadChart(1);
+        positionsDisplayed.add(1);
         box.setAlignment(chart, Pos.CENTER);
         box.getChildren().add(chart);
         //homeButton = new Button("Home");
@@ -59,7 +61,11 @@ public class ResultsGraph extends Application {
             @Override
             public void handle(ActionEvent event) {
                 String selection = positionSelect.getSelectionModel().getSelectedItem();
-                data.updateChart(chart,data.getPositionID(selection, StateControl.getIdCode()));
+                int id = data.getPositionID(selection, StateControl.getIdCode());
+                if(!positionsDisplayed.contains(id)) {
+                    positionsDisplayed.add(id);
+                    data.updateChart(chart, id);
+                }
             }
         });
     }
