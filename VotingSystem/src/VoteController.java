@@ -61,6 +61,7 @@ public class VoteController extends Application {
         //Search through the database for the candidates and list them on the scene
         List<Position> candidates = data.getPositionsWithCandidates(AuditorController.getIdCode());
         for(Position position : candidates) {
+            System.out.println(position.getPositiontitle());
             ToggleGroup group = new ToggleGroup();
             Label text = new Label(position.getPositiontitle());
             text.setFont(Font.font("Helvetica-Bold", 16));
@@ -70,6 +71,7 @@ public class VoteController extends Application {
                 button.setFont(Font.font("Helvetica-Bold", 12));
                 button.setToggleGroup(group);
                 box.getChildren().add(button);
+                System.out.println(candidate.getFirstName());
             }
             Label blank = new Label("    ");
             buttonGroups.add(group);

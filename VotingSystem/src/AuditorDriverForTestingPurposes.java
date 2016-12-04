@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class AuditorDriverForTestingPurposes extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("StateAndPrecinct.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Precincts.fxml"));
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

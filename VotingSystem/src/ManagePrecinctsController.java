@@ -5,8 +5,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.event.ActionEvent;
 
-import java.awt.event.ActionEvent;
+//import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Created by smallaro on 12/3/16.
  */
-public class ManagePrecinctsDriver implements Initializable {
+public class ManagePrecinctsController implements Initializable {
     @FXML
     Button add;
 
@@ -35,22 +36,23 @@ public class ManagePrecinctsDriver implements Initializable {
         domains.add("Federal");
         ObservableList obList = FXCollections.observableList(domains);
         domain.setItems(obList);
+        name.setText("");
     }
 
     @FXML
     public void addPressed(ActionEvent event) {
-        if(add.getText().equals("") || add.getText().equals("Enter Officer Title")) {
-            add.setText("Enter Officer Title");
+        if(name.getText().equals("") || name.getText().equals("Enter Officer Title")) {
+            name.setText("Enter Officer Title");
         } else if(!domain.getSelectionModel().isEmpty()) {
             char[] givenID = AuditorController.getIdCode().toCharArray();
             String stateid = "";
             String precinctid = "";
-            if(domain.getSelectionModel().getSelectedIndex()==1){
+            if(domain.getSelectionModel().getSelectedIndex()==0){
                 stateid += givenID[0];
                 stateid += givenID[1];
                 precinctid += givenID[0];
                 precinctid += givenID[1];
-            } else if(domain.getSelectionModel().getSelectedIndex()==2) {
+            } else if(domain.getSelectionModel().getSelectedIndex()==1) {
                 stateid += givenID[0];
                 stateid += givenID[1];
                 precinctid = "00";
@@ -58,10 +60,8 @@ public class ManagePrecinctsDriver implements Initializable {
                 stateid = "00";
                 precinctid = "00";
             }
-            data.addPrecinct(stateid, precinctid);
+            stateid +=precinctid;
+            data.addPosition(name.getText(), stateid);
         }
     }
-
-
-
 }

@@ -91,9 +91,7 @@ public class AddCandidateController implements Initializable {
     @FXML
     public void positionSelected() throws Exception {
         String selected = positionSelect.getValue().toString();
-        //System.out.println("Selected is " + selected);
-        Integer positionID = data.getPositionID(selected);
-        //System.out.println("The position ID is " + positionID);
+        Integer positionID = data.getPositionID(selected, StateAndPrecinctController.getIdCode());
         newCandidate.setPositionid(positionID);
     }
 

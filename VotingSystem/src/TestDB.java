@@ -62,8 +62,20 @@ public class TestDB {
         }
     }
 
+    public void addPosition(String positionTitle, String availablePrecincts) {
+        try {
+            preparedStatement = connection.prepareStatement("INSERT INTO position" + "(positiontitle, availableprecincts) VALUES" + "(?,?)" );
+            preparedStatement.setString(1, positionTitle);
+            preparedStatement.setString(2, availablePrecincts);
+            preparedStatement.executeUpdate();
+        } catch(SQLException ex) {
+            ex.printStackTrace();
+            System.exit(-1);
+        }
+    }
 
-    public Integer getPositionID(String name) {
+
+    public Integer getPositionID(String name, String id) {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
         try {
@@ -71,7 +83,10 @@ public class TestDB {
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 if (resultSet.getString("positiontitle").equals(name)) {
-                    return resultSet.getInt("positionid");
+                    String code = resultSet.getString("availableprecincts");
+                    if(code.equals(id) || code.equals("0000") || (code.charAt(0)==id.charAt(0) && code.charAt(1)==id.charAt(1) && code.charAt(2)=='0' && code.charAt(3)=='0')) {
+                        return resultSet.getInt("positionid");
+                    }
                 }
             }
         } catch (SQLException ex) {
