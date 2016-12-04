@@ -452,7 +452,11 @@ public class Database {
     }
 
     /**
-     * This method creates a CSV file of t
+     * This method creates a HTML file of the election result
+     * to be uploaded to the web. The method generates a new
+     * file called results.html file containing the html
+     * code for a table of the election results. The result table
+     * is based on the candidates table on the database.
      *
      * @param id the position ID
      */
@@ -494,7 +498,7 @@ public class Database {
     }
 
     /**
-     *
+     * This method closes the connection to the database
      */
     public void closeConnection() {
         try {
