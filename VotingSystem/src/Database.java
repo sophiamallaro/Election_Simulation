@@ -1,5 +1,7 @@
 /**
- * Created by Sophia on 12/2/2016.
+ * This class contains all functions to deal with the database
+ * @author Sophia Mallaro
+ * @see Database
  */
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -21,6 +23,9 @@ public class Database {
     private PreparedStatement preparedStatement;
     private PreparedStatement preparedStatement2;
 
+    /**
+     * Constructor that establishes a connection with the databse
+     */
     Database() {
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -30,6 +35,11 @@ public class Database {
         }
     }
 
+    /**
+     * Takes in a Candidate object and adds that information to the candidate table
+     * in the database
+     * @param candidate Candidate object to be added
+     */
     public void addCandidate(Candidate candidate) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO candidates" + "(firstname, lastname, party, voteCount, positionid) VALUES" + "(?,?,?,?,?)" );
@@ -45,6 +55,11 @@ public class Database {
         }
     }
 
+    /**
+     * Adds a new precinct to the precinct table
+     * @param stateid State to add to
+     * @param precinctid Precinct to add
+     */
     public void addPrecinct(String stateid, String precinctid) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO precincts" + "(stateid, precinctid) VALUES" + "(?,?)" );
@@ -57,6 +72,11 @@ public class Database {
         }
     }
 
+    /**
+     * Adds a new office position
+     * @param positionTitle Name of position
+     * @param availablePrecincts Code for available precincts
+     */
     public void addPosition(String positionTitle, String availablePrecincts) {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO position" + "(positiontitle, availableprecincts) VALUES" + "(?,?)" );
@@ -69,6 +89,12 @@ public class Database {
         }
     }
 
+    /**
+     * Gets the id associated with the desired office position
+     * @param name Name of position
+     * @param id precinct id
+     * @return Integer id of position
+     */
 
     public Integer getPositionID(String name, String id) {
         List<State> states = new ArrayList<>();
@@ -91,6 +117,10 @@ public class Database {
         return null;
     }
 
+    /**
+     * Finds candidates running for specific positions
+     * @param positionID ID of position
+     */
     public void findCandidates(int positionID) {
         List<Candidate> candidates = new ArrayList<>();
         ResultSet resultSet = null;
@@ -109,6 +139,10 @@ public class Database {
         }
     }
 
+    /**
+     * Returns all known states
+     * @return List of states
+     */
     public List<State> getStates() {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
@@ -125,6 +159,11 @@ public class Database {
         return states;
     }
 
+    /**
+     * Returns the ID of state
+     * @param name State name
+     * @return Integer ID
+     */
     public Integer getStateID(String name) {
         List<State> states = new ArrayList<>();
         ResultSet resultSet = null;
@@ -143,6 +182,11 @@ public class Database {
         return null;
     }
 
+    /**
+     * List of positions available in the precinct
+     * @param idCode Precinct code
+     * @return List of positions
+     */
     public List<Position> getPositions(String idCode) { //Return list of positions available to a precinct
         List<Position> positions = new ArrayList<>();
         ResultSet resultSet = null;
@@ -167,6 +211,11 @@ public class Database {
         return positions;
     }
 
+    /**
+     * Gets list of ids of positions available
+     * @param idCode precinct code
+     * @return Integer list of available positions
+     */
     public List<Integer> getPositionIDList(String idCode) { //Return list of positions available to a precinct
         List<Integer> positions = new ArrayList<>();
         ResultSet resultSet = null;
@@ -191,6 +240,11 @@ public class Database {
         return positions;
     }
 
+    /**
+     * Gets precincts in the given state
+     * @param stateid ID code of state
+     * @return List of precincts
+     */
 
     public List<Precinct> getPrecincts(int stateid) {
         List<Precinct> precincts = new ArrayList<>();
@@ -210,7 +264,12 @@ public class Database {
         return precincts;
     }
 
-    public List<Candidate> getCandidates(int findpositionID) { //Return list of positions available to a precinct
+    /**
+     * Returns a list of Candidates running for a specific position
+     * @param findpositionID position id
+     * @return List of candidates
+     */
+    public List<Candidate> getCandidates(int findpositionID) { //Return list of candidates
         ResultSet resultSet = null;
         List<Candidate> candidates = new ArrayList<Candidate>();
         try {
@@ -228,6 +287,11 @@ public class Database {
         return candidates;
     }
 
+    /**
+     *  Returns list of positions available. Each position has a list of candidates running for the position.
+     * @param idCode precinct identification code
+     * @return List of positions
+     */
     public List<Position> getPositionsWithCandidates(String idCode) {
         List<Position> positions = new ArrayList<>();
         ResultSet resultSet = null;
@@ -252,6 +316,10 @@ public class Database {
         return positions;
     }
 
+    /**
+     * Votes for a candidate
+     * @param identifier candidate name and party
+     */
     public void voteFor(String identifier) { //vote for a candidate
         String[] identities = identifier.replace(',', ' ').split("\\s+");
         try {
@@ -265,6 +333,11 @@ public class Database {
         }
     }
 
+    /**
+     * Returns a bar chart of results data
+     * @param positionToLoad ID of position of desired results
+     * @return BarChart
+     */
     public BarChart<String, Number> loadChart(int positionToLoad) {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         List<Candidate> candidates = new ArrayList<>();
@@ -290,7 +363,11 @@ public class Database {
             return bc;
     }
 
-
+    /**
+     * Updates bar chart to add data
+     * @param chartToUpdate Barchart to update
+     * @param positionToLoad position of id to add
+     */
     public void updateChart(BarChart<String, Number> chartToUpdate, int positionToLoad) {
         XYChart.Series<String, Number> newSeries = new XYChart.Series<>();
         List<Candidate> candidates = new ArrayList<>();
@@ -311,6 +388,10 @@ public class Database {
         chartToUpdate.getData().add(newSeries);
     }
 
+    /**
+     * Gets list of all candidate IDs
+     * @return ArrayList of all candidate IDs
+     */
     public ArrayList<Integer> getCandidateIDList() {
         ResultSet resultSet = null;
         ArrayList<Integer> candidateids = new ArrayList<Integer>();
@@ -327,6 +408,10 @@ public class Database {
         return candidateids;
     }
 
+    /**
+     * Votes for a candidate with a specified ID
+     * @param ids ID of candidate
+     */
     public void voteID(int[] ids) { //vote for a candidate
         try {
             preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = 0");
@@ -342,6 +427,10 @@ public class Database {
         }
     }
 
+    /**
+     * Makes html file and displays
+     * @param ids List of ids of positions to display
+     */
     public void makeCSV(List<Integer> ids) {
         ResultSet resultSet = null;
         try {
@@ -370,6 +459,11 @@ public class Database {
         }
     }
 
+    /**
+     * Writes html table for a specific position id
+     * @param id position id
+     * @return
+     */
     public String writeTable(int id) {
         ResultSet resultSet = null;
         String toReturn = "";
@@ -395,6 +489,11 @@ public class Database {
         return toReturn;
     }
 
+    /**
+     * Gets position name from ID
+     * @param id position name from id
+     * @return
+     */
     public String getNameFromID(int id) {
         String toReturn = "";
         ResultSet resultSet = null;
@@ -413,6 +512,9 @@ public class Database {
         return toReturn;
     }
 
+    /**
+     * Closes connection
+     */
     public void closeConnection() {
         try {
             connection.close();
