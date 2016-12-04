@@ -139,6 +139,7 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                 //Requires that button names DO NOT CHANGE
                 if (getButtonPressed().equals("Results")) {
                     //myStage.setScene(new Scene(data.loadChart()));
+                    System.out.println("Got into results!");
                     ResultsGraph graph = new ResultsGraph();
                     graph.start(myStage);
                 } else if (getButtonPressed().equals("Vote")) {
@@ -153,6 +154,7 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                     myStage.show();
                 }
             } catch (NullPointerException npe) {//Throws NullPointerException if unable to find file
+                System.out.println("Throwing a NPE!!!!!!!!");
                 generateButton.getScene().getWindow().hide();
             }
         }
