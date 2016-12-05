@@ -512,6 +512,16 @@ public class Database {
         return toReturn;
     }
 
+    public void clearVotes() {
+        try {
+            preparedStatement = connection.prepareStatement("UPDATE candidates SET voteCount = 0");
+            preparedStatement.execute();
+        } catch(SQLException ex) {
+            System.exit(-1);
+        }
+
+    }
+
     /**
      * Closes connection
      */

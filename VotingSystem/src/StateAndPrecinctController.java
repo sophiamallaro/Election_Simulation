@@ -150,6 +150,7 @@ public class StateAndPrecinctController extends StateControl implements Initiali
                             Database data2 = new Database();
                             RandomVoteGenerator.generateOneHundredThousandRandomVotes();
                             data2.makeCSV(data2.getPositionIDList(StateControl.getIdCode()));
+                            //data2.clearVotes();
                             data2.closeConnection();
                         }
                     }.start();
