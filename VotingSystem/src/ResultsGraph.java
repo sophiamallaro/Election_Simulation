@@ -16,9 +16,16 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * This class is the class to generate the result
+ * graph of the election. The graph can be updated
+ * with changing the positions in the combo box.
+ * The class also allows the application to return
+ * to the main menu upon clicking the home button.
+ *
  * @author Kyle Anderson
  */
 public class ResultsGraph extends Application {
+    //Instantion of member variables
     private static final Database data = new Database();
     private static final Button homeButton = new Button("Home");
     List<Position> positions;
@@ -26,6 +33,13 @@ public class ResultsGraph extends Application {
     private final ComboBox<String> positionSelect = new ComboBox<>();
     BarChart<String, Number> chart;
 
+    /**
+     * Starts up the result graph class to generate
+     * the election results
+     *
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         StackPane box = new StackPane();
